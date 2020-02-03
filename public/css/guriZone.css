@@ -1,0 +1,55 @@
+body {
+    background-color: rgb(230, 230, 230);
+}
+
+footer.guriFooter, header.guriHeader{
+    background-color: white;
+}
+
+.gurizone-login, .gurizone-contact, .gurizone-gestion, .gurizone-crear, .guri-tienda, .gurizone-inicio, .gurizone-perfil{
+  background-color: white;
+  border-radius: 2em;
+}
+
+.cut{
+    overflow: hidden;
+    max-width: 200px;
+    white-space: nowrap;/*
+    text-overflow: ellipsis;
+
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;*/
+}
+
+.cut:hover{
+    white-space: initial;
+    overflow: visible;
+    cursor: pointer;
+}
+
+.container-header{
+    width:100%;
+    padding-right:15px;
+    padding-left:15px;
+    margin-right:auto;
+    margin-left:auto
+}
+@media (min-width:576px) {
+    .container-header{max-width:540px
+    }
+}@media (min-width:768px) {
+    .container-header{max-width:720px
+    }
+}@media (min-width:992px){
+    .container-header{max-width:960px}
+}@media (min-width:1200px){
+    .container-header{max-width:1425px}
+}
+
+.dropdown, .has-children, .dropdown-toggle{
+    outline: none;
+}
+

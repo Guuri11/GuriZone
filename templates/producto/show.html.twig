@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Producto{% endblock %}
+
+{% block body %}
+    <h1>Producto</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdProd</th>
+                <td>{{ producto.idProd }}</td>
+            </tr>
+            <tr>
+                <th>ModeloProd</th>
+                <td>{{ producto.modeloProd }}</td>
+            </tr>
+            <tr>
+                <th>MarcaProd</th>
+                <td>{{ producto.marcaProd }}</td>
+            </tr>
+            <tr>
+                <th>Color</th>
+                <td>{{ producto.color }}</td>
+            </tr>
+            <tr>
+                <th>ColorDisp</th>
+                <td>{{ producto.colorDisp }}</td>
+            </tr>
+            <tr>
+                <th>Talla</th>
+                <td>{{ producto.talla }}</td>
+            </tr>
+            <tr>
+                <th>TallaDisp</th>
+                <td>{{ producto.tallaDisp }}</td>
+            </tr>
+            <tr>
+                <th>StockProd</th>
+                <td>{{ producto.stockProd }}</td>
+            </tr>
+            <tr>
+                <th>NumVentasProd</th>
+                <td>{{ producto.numVentasProd }}</td>
+            </tr>
+            <tr>
+                <th>FechaSalida</th>
+                <td>{{ producto.fechaSalida ? producto.fechaSalida|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>PrecioUnidad</th>
+                <td>{{ producto.precioUnidad }}</td>
+            </tr>
+            <tr>
+                <th>FotoProd</th>
+                <td>{{ producto.fotoProd }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ producto.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>Descatalogado</th>
+                <td>{{ producto.descatalogado ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('producto_index') }}">back to list</a>
+
+    <a href="{{ path('producto_edit', {'idProd': producto.idProd}) }}">edit</a>
+
+    {{ include('producto/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,12 +1,183 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <title>GuriZone</title>
+        <link rel="icon" href="/../imgs/logo_draw_black.png">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
+        <link rel="stylesheet" href="/../fonts/icomoon/style.css">
+
+        <link rel="stylesheet" href="/../css/bootstrap.min.css">
+        <link rel="stylesheet" href="/../css/magnific-popup.css">
+        <link rel="stylesheet" href="/../css/jquery-ui.css">
+        <link rel="stylesheet" href="/../css/owl.carousel.min.css">
+        <link rel="stylesheet" href="/../css/owl.theme.default.min.css">
+
+
+        <link rel="stylesheet" href="/../css/aos.css">
+
+        <link rel="stylesheet" href="/../css/style.css">
+        <link rel="stylesheet" href="/../css/guriZone.css">
     </head>
     <body>
+    <div class="site-wrap">
+        <!--NAVBAR-->
+        <header class="site-navbar" role="banner">
+            <div class="site-navbar-top">
+                <div class="container-header">
+                    <div class="row align-items-center">
+
+                        <div class="col-4 col-md-4 order-2 order-md-1 site-search-icon text-left">
+                            <form action="" method="get" class="site-block-top-search">
+                                <button type="submit" class="icon icon-search mr-5 bg-white"></button>
+                                <input type="text" class="form-control border-0" name="search" placeholder="">
+                            </form>
+                        </div>
+
+                        <div class="col-4 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
+                            <div >
+                                <a href="" class=""><img class="img-fluid gurilogo" src="/../imgs/logo_black.png" width="45%"></a>
+                            </div>
+                        </div>
+                        <div class="col-4 col-md-4 order-3 order-md-3 text-right">
+                            <div class="site-top-icons">
+                                <ul class="site-menu">
+                                    <li><a href=""><span class="icon icon-person_add "></span> {% trans %}REGISTRARSE{% endtrans %}</a>
+                                    <li><a href=""><span class="icon icon-sign-in"></span> {% trans %}INICIAR SESION{% endtrans %}</a></li>
+                                    <li>
+                                        <a href="#" class="site-cart">
+                                            <span class="icon icon-shopping_cart"></span>{% trans %}CARRITO{% endtrans %}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown">
+                                            <a href="#" class="site-cart dropdown-toggle" data-toggle="dropdown">
+                                                <span class="icon icon-language"></span> {% trans %}IDIOMA{% endtrans %}
+                                            </a>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item-text" href="?lang=esp">{% trans %}Castellano{% endtrans %}</a>
+                                                <a class="dropdown-item-text" href="?lang=val">{% trans %}Valenciano{% endtrans %}</a>
+                                                <a class="dropdown-item-text" href="?lang=ang">{% trans %}Ingles{% endtrans %}</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav class="site-navigation text-right text-md-center" role="navigation">
+                <div class="container">
+                    <ul class="site-menu js-clone-nav d-none d-md-block">
+                        <li><a href="">{% trans %}INICIO{% endtrans %}</a></li>
+                        <li class="has-children">
+                            <a href="">{% trans %}TIENDA{% endtrans %}</a>
+                            <ul class="dropdown">
+                                <li><a href="">{% trans %}ACCESORIOS{% endtrans %}</a></li>
+                                <li><a href="">{% trans %}ROPA{% endtrans %}</a></li>
+                                <li><a href="">{% trans %}ZAPATILLAS{% endtrans %}</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">{% trans %}SOBRE NOSOTROS{% endtrans %}</a></li>
+                        <li><a href="">{% trans %}CONTACTANOS{% endtrans %}</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!--FIN NAVBAR-->
+
+
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+
+
+        <!--FOOTER-->
+        <footer class="site-footer border-top guriFooter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="footer-heading mb-4">{% trans %}Navegacion{% endtrans %}</h3>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <ul class="list-unstyled">
+                                    <li><a href="#">{% trans %}Ventas online{% endtrans %}</a></li>
+                                    <li><a href="#">{% trans %}Caracteristicas{% endtrans %}</a></li>
+                                    <li><a href="#">{% trans %}Carrito{% endtrans %}</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <ul class="list-unstyled">
+                                    <li><a href="#">{% trans %}Comercio movil{% endtrans %}</a></li>
+                                    <li><a href="#">{% trans %}Envios{% endtrans %}</a></li>
+                                    <li><a href="#">{% trans %}Desarrollo Web{% endtrans %}</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <ul class="list-unstyled">
+                                    <li><a href="#">{% trans %}Puntos de venta{% endtrans %}</a></li>
+                                    <li><a href="#">Hardware</a></li>
+                                    <li><a href="#">Software</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+                        <h3 class="footer-heading mb-4">Promo</h3>
+                        <a href="" class="block-6">
+                            <!--img src="/../ultimoProductocdcd" alt="Image placeholder" class="img-fluid rounded mb-4"-->
+                            <img src="/../{{ asset('imgs/productos/default_product_image.png') }}" alt="Image placeholder" class="img-fluid rounded mb-4">
+                            <h3 class="font-weight-light  mb-0">{% trans %}Nuevo producto!{% endtrans %}</h3>
+                            <p></p>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="block-5 mb-5">
+                            <h3 class="footer-heading mb-4">{% trans %}Informacion de contacto{% endtrans %}</h3>
+                            <ul class="list-unstyled">
+                                <li class="address">C/Falsa 123, Ondara, Alicante, España</li>
+                                <li class="phone"><a href="tel://34902202122">+34 902 20 21 22</a></li>
+                                <li class="email">contact@gurizone.com</li>
+                            </ul>
+                        </div>
+
+                        <div class="block-7">
+                            <form action="#" method="post">
+                                <label for="email_subscribe" class="footer-heading">{% trans %}Subscribirte{% endtrans %}</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
+                                    <input type="submit" class="btn btn-sm btn-primary" value="{% trans %}Enviar{% endtrans %}">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-5 mt-5 text-center">
+                    <div class="col-md-12">
+                        <p>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            <span class="float-left">Copyright &copy; Colorlib </span> Sergio Gurillo Corral - 2020 <span class="float-right">2 CFGS DAW</span></a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+        <!--FIN FOOTER-->
+    </div>
+
+    <script src="/../js/jquery-3.3.1.min.js"></script>
+    <script src="/../js/jquery-ui.js"></script>
+    <script src="/../js/popper.min.js"></script>
+    <script src="/../js/bootstrap.min.js"></script>
+    <script src="/../js/owl.carousel.min.js"></script>
+    <script src="/../js/jquery.magnific-popup.min.js"></script>
+    <script src="/../js/aos.js"></script>
+    <script src="/../js/main.js"></script>
     </body>
 </html>

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Producto index{% endblock %}
+
+{% block body %}
+    <h1>Producto index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdProd</th>
+                <th>ModeloProd</th>
+                <th>MarcaProd</th>
+                <th>Color</th>
+                <th>ColorDisp</th>
+                <th>Talla</th>
+                <th>TallaDisp</th>
+                <th>StockProd</th>
+                <th>NumVentasProd</th>
+                <th>FechaSalida</th>
+                <th>PrecioUnidad</th>
+                <th>FotoProd</th>
+                <th>Descripcion</th>
+                <th>Descatalogado</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for producto in productos %}
+            <tr>
+                <td>{{ producto.idProd }}</td>
+                <td>{{ producto.modeloProd }}</td>
+                <td>{{ producto.marcaProd }}</td>
+                <td>{{ producto.color }}</td>
+                <td>{{ producto.colorDisp }}</td>
+                <td>{{ producto.talla }}</td>
+                <td>{{ producto.tallaDisp }}</td>
+                <td>{{ producto.stockProd }}</td>
+                <td>{{ producto.numVentasProd }}</td>
+                <td>{{ producto.fechaSalida ? producto.fechaSalida|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ producto.precioUnidad }}</td>
+                <td>{{ producto.fotoProd }}</td>
+                <td>{{ producto.descripcion }}</td>
+                <td>{{ producto.descatalogado ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('producto_show', {'idProd': producto.idProd}) }}">show</a>
+                    <a href="{{ path('producto_edit', {'idProd': producto.idProd}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="15">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('producto_new') }}">Create new</a>
+{% endblock %}
