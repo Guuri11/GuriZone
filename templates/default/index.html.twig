@@ -1,20 +1,115 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Hello DefaultController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="justify-content-center gurizone-inicio p-lg-4 m-lg-5 p-md-4 m-md-3 p-sm-4 m-sm-5">
+        <div class="site-section site-blocks-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
+                        <a class="block-2-item" href="?categoria=accesorios&page=1">
+                            <figure class="image">
+                                <img src="../imgs/backgrounds/accesorios.jpg" alt="" class="img-fluid">
+                            </figure>
+                            <div class="text">
+                                <span class="text-uppercase">Catálogo</span>
+                                <h3>Accesorios</h3>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="100">
+                        <a class="block-2-item" href="?categoria=ropa&page=1">
+                            <figure class="image">
+                                <img src="../imgs/backgrounds/ropa.jpg" alt="" class="img-fluid">
+                            </figure>
+                            <div class="text">
+                                <span class="text-uppercase">Catálogo</span>
+                                <h3>Ropa</h3>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="200">
+                        <a class="block-2-item" href="?categoria=zapatillas&page=1">
+                            <figure class="image">
+                                <img src="../imgs/backgrounds/zapatillas.jpg" alt="" class="img-fluid">
+                            </figure>
+                            <div class="text">
+                                <span class="text-uppercase">Catálogo</span>
+                                <h3>Zapatillas</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="example-wrapper">
-    <h1>Welcome to GuriZone! ✅</h1>
+    <!--INICIO TOP TREANDING-->
+    <div class="justify-content-center gurizone-inicio p-lg-4 m-lg-5 p-md-4 m-md-3 p-sm-4 m-sm-5">
+        <div class="site-section block-3 site-blocks-2">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-7 site-section-heading text-center pt-4">
+                        <h2>MÁS VENDIDOS</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="nonloop-block-3 owl-carousel">
+                            {% for producto in productosTT %}
+                                <div class="item">
+                                    <a href="" class="block-6">
+                                        <div class="block-4 text-center shadow">
+                                            <figure class="block-4-image">
+                                                <img src="../{{ asset('imgs/productos/default_product_image.png') }}" alt="Image placeholder" class="img-fluid">
+                                            </figure>
+                                            <div class="block-4-text p-4">
+                                                <h3><a href="">{{ producto.getModeloProd }}</a></h3>
+                                                <p class="mb-0">{{ producto.getNumVentasProd }} vendidos</p>
+                                                <p class="text-primary font-weight-bold">{{ producto.getPrecioUnidad }}€</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--FIN TOP TREANDING-->
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/dwes/GuriZone/src/Controller/DefaultController.php'|file_link(0) }}">src/Controller/DefaultController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/dwes/GuriZone/templates/default/index.html.twig'|file_link(0) }}">templates/default/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <!--INICIO NOVEDADES-->
+    <div class="justify-content-center gurizone-inicio p-lg-4 m-lg-5 p-md-4 m-md-3 p-sm-4 m-sm-5">
+        <div class="site-section block-3 site-blocks-2">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-7 site-section-heading text-center pt-4">
+                        <h2>NOVEDADES</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="nonloop-block-3 owl-carousel">
+                            {% for producto in novedades %}
+                                <div class="item">
+                                    <a href="" class="block-6">
+                                        <div class="block-4 text-center shadow">
+                                            <figure class="block-4-image">
+                                                <img src="../{{ asset('imgs/productos/default_product_image.png') }}" alt="Image placeholder" class="img-fluid">
+                                            </figure>
+                                            <div class="block-4-text p-4">
+                                                <h3><a href="">{{ producto.getModeloProd }}</a></h3>
+                                                <p class="text-primary font-weight-bold">{{ producto.getPrecioUnidad }}€</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--FIN TOP NOVEDADES-->
 {% endblock %}
