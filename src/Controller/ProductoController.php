@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/producto")
+ * @Route("/tienda")
  */
 class ProductoController extends AbstractController
 {
@@ -23,8 +23,14 @@ class ProductoController extends AbstractController
             ->getRepository(Producto::class)
             ->findAll();
 
+        // ultimo producto
+        $ultimoProducto = $this->getDoctrine()
+            ->getRepository(Producto::class)
+            ->getLatest();
+
         return $this->render('producto/index.html.twig', [
             'productos' => $productos,
+            'ultimoProducto'=>$ultimoProducto
         ]);
     }
 
