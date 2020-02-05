@@ -126,15 +126,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-                        <h3 class="footer-heading mb-4">Promo</h3>
-                        <a href="" class="block-6">
-                            <!--img src="/../ultimoProductocdcd" alt="Image placeholder" class="img-fluid rounded mb-4"-->
-                            <img src="/../{{ asset('imgs/productos/default_product_image.png') }}" alt="Image placeholder" class="img-fluid rounded mb-4">
-                            <h3 class="font-weight-light  mb-0">{% trans %}Nuevo producto!{% endtrans %}</h3>
-                            <p></p>
-                        </a>
-                    </div>
+                    {%  for up in ultimoProducto %}
+                        <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+                            <h3 class="footer-heading mb-4">Promo</h3>
+                            <a href="" class="block-6">
+                                <!--img src="/../ultimoProductocdcd" alt="Image placeholder" class="img-fluid rounded mb-4"-->
+                                <img src="/../{{ up.fotoProd }}" alt="Image placeholder" class="img-fluid rounded mb-4">
+                                <h3 class="font-weight-light  mb-0">{% trans %}Nuevo producto!{% endtrans %}</h3>
+                                <p></p>
+                            </a>
+                        </div>
+                    {% endfor %}
                     <div class="col-md-6 col-lg-3">
                         <div class="block-5 mb-5">
                             <h3 class="footer-heading mb-4">{% trans %}Informacion de contacto{% endtrans %}</h3>
