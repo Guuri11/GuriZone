@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Producto index{% endblock %}
+
+{% block body %}
+    <div class="justify-content-center gurizone-login p-lg-2 m-lg-3 p-md-4 m-md-3 p-sm-4 m-sm-5">
+        <div class="site-section">
+            <div class="container">
+                <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
+                    <form action="" method="get" class="site-block-top-search">
+                        <button type="submit" class="icon icon-search mr-5 bg-white"></button>
+                        <input type="text" class="form-control border-0" name="search" placeholder="Search">
+                    </form>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-md-9 order-2">
+                        <div class="row">
+                            <div class="col-md-12 mb-5">
+                                {% if 1==2 and fecha_inicial is not null and fecha_final is not null %}
+                                    <div class="float-md-left mb-4"><h2 class="text-black h5">Fecha filtrada entre {{ fecha_inicial }} y {{ fecha_final }}</h2></div>
+                                {% elseif  1==2 and busqueda is not null %}
+                                    <div class="float-md-left mb-4"><h2 class="text-black h5">Busqueda: {{ busqueda|upper }}</h2></div>
+                                {% else %}
+                                    <div class="float-md-left mb-4"><h2 class="text-black h5">TODO</h2></div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!--PRODUCTOS-->
+                        <div class="row mb-5">
+                            {% for producto in productos %}
+                                <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                                    <div class="block-4 text-center border">
+                                        <figure class="block-4-image">
+                                            <a href="{{ url('producto_show',{'idProd': producto.idProd}) }}"><img src=".{{ producto.getFotoProd }}" alt="Image placeholder" class="img-fluid"></a>
+                                        </figure>
+                                        <div class="block-4-text p-4">
+                                            <h3><a href="">{{ producto.getModeloProd }}</a></h3>
+                                            <p class="mb-0">{{ producto.getMarcaProd }}</p>
+                                            <p class="text-primary font-weight-bold">{{ producto.getPrecioUnidad }}€</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <!--FIN PRODUCTOS-->
+
+                        <!--PAGINACION: Segun los filtros de busqueda utilizara un tipo de paginada u otro para la redireccion--
+
+                        <div class="row" data-aos="fade-up">
+                            <div class="col-md-12 text-center">
+                                <div class="site-block-27">
+                                {% if 1==2 %}
+                                    {% if busqueda is null and fecha_inicial is null and fecha_final is null %}
+                                        <ul>
+                                            <li><a href="?categoria={{ categoria }}&page={{ pagina <= 0 ? paginacion.getPagina-1:'1' }}"><</a></li>
+                                            {% for i in 1..paginacion.getNumPaginas %}
+                                                <li><a href="{{ router.generaterURL('Producto','catalogo') }}?categoria={{ categoria }}&page={{ i }}"><span>{{ i }}</span></a></li>
+                                            {% endfor %}
+                                            <li><a href="?categoria={{ categoria }}&page={{ paginacion.getPagina>=paginacion.getNumPaginas ? '1':paginacion.getPagina+1 }}">&gt;</a></li>
+                                        </ul>
+                                    {% elseif fecha_inicial is not null and fecha_final is not null %}
+                                        <ul>
+                                            <li><a href="?fecha_inicial={{ fecha_inicial }}&fecha_final={{ fecha_final }}&page={{ pagina<=0 ? paginacion.getPagina-1:'1' }}"><</a></li>
+                                            {% for i in 1..paginacion.getNumPaginas %}
+                                                <li><a href="?fecha_inicial={{ fecha_inicial }}&fecha_final={{ fecha_final }}&page={{ i }}"><span>{{ i }}</span></a></li>
+                                            {% endfor %}
+                                            <li><a href="?fecha_inicial={{ fecha_inicial }}&fecha_final={{ fecha_final }}&page={{ paginacion.getPagina>=paginacion.getNumPaginas ? '1':paginacion.getPagina+1 }}">&gt;</a></li>
+                                        </ul>
+                                    {% else %}
+                                        <ul>
+                                            <li><a href="?search={{ paginacion.getBusqueda }}&page={{ pagina<=0 ? paginacion.getPagina-1:'1' }}"><</a></li>
+                                            {% for i in 1..paginacion.getNumPaginas %}
+                                                <li><a href="?search={{ paginacion.getBusqueda }}&page={{ i }}"><span>{{ i }}</span></a></li>
+                                            {% endfor %}
+                                            <li><a href="?search={{ paginacion.getBusqueda }}&page={{ paginacion.getPagina>=paginacion.getNumPaginas ? '1':paginacion.getPagina+1 }}">&gt;</a></li>
+                                        </ul>
+                                    {% endif %}
+                                    
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <--FIN PAGINACION-->
+                        
+                        <!--FILTRO CATEGORIA/FECHA-->
+                    </div>
+                    <div class="col-md-3 order-1 mb-5 mb-md-0">
+                        <div class="border p-4 rounded mb-4">
+                            <h3 class="mb-3 h6 text-uppercase text-black d-block">Categorias</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-1"><a href="?categoria=todo&page=1" class="d-flex"><span>Todo</span> <span class="text-black ml-auto"></span></a></li>
+                                <li class="mb-1"><a href="?categoria=accesorios&page=1" class="d-flex"><span>Accesorios</span> <span class="text-black ml-auto"></span></a></li>
+                                <li class="mb-1"><a href="?categoria=ropa&page=1" class="d-flex"><span>Ropa</span> <span class="text-black ml-auto"></span></a></li>
+                                <li class="mb-1"><a href="?categoria=zapatillas&page=1" class="d-flex"><span>Zapatillas</span> <span class="text-black ml-auto"></span></a></li>
+                            </ul>
+                        </div>
+                        <div class="border p-4 rounded mb-4">
+                            <div class="mb-4">
+                                <h3 class="mb-3 h6 text-uppercase text-black d-block">Filtrar por fecha</h3>
+                                <form action="" method="get">
+                                    <label for="fecha_inicial" class="d-flex text-black">Fecha Inicial</label>
+                                    <input type="date" id="fecha_inicial" name="fecha_inicial" class="mr-2 mt-1 form-control">
+                                    <label for="fecha_final" class="d-flex text-black">Fecha Final</label>
+                                    <input type="date" id="fecha_final" class="mr-2 mt-1 form-control" name="fecha_final">
+                                    <input type="hidden" name="page" value="1">
+                                    <input type="submit" value="Filtrar" class="btn btn-primary mt-3">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--FIN FILTRO CATEGORIA/FECHA-->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

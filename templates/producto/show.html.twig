@@ -3,72 +3,27 @@
 {% block title %}Producto{% endblock %}
 
 {% block body %}
-    <h1>Producto</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>IdProd</th>
-                <td>{{ producto.idProd }}</td>
-            </tr>
-            <tr>
-                <th>ModeloProd</th>
-                <td>{{ producto.modeloProd }}</td>
-            </tr>
-            <tr>
-                <th>MarcaProd</th>
-                <td>{{ producto.marcaProd }}</td>
-            </tr>
-            <tr>
-                <th>Color</th>
-                <td>{{ producto.color }}</td>
-            </tr>
-            <tr>
-                <th>ColorDisp</th>
-                <td>{{ producto.colorDisp }}</td>
-            </tr>
-            <tr>
-                <th>Talla</th>
-                <td>{{ producto.talla }}</td>
-            </tr>
-            <tr>
-                <th>TallaDisp</th>
-                <td>{{ producto.tallaDisp }}</td>
-            </tr>
-            <tr>
-                <th>StockProd</th>
-                <td>{{ producto.stockProd }}</td>
-            </tr>
-            <tr>
-                <th>NumVentasProd</th>
-                <td>{{ producto.numVentasProd }}</td>
-            </tr>
-            <tr>
-                <th>FechaSalida</th>
-                <td>{{ producto.fechaSalida ? producto.fechaSalida|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>PrecioUnidad</th>
-                <td>{{ producto.precioUnidad }}</td>
-            </tr>
-            <tr>
-                <th>FotoProd</th>
-                <td>{{ producto.fotoProd }}</td>
-            </tr>
-            <tr>
-                <th>Descripcion</th>
-                <td>{{ producto.descripcion }}</td>
-            </tr>
-            <tr>
-                <th>Descatalogado</th>
-                <td>{{ producto.descatalogado ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('producto_index') }}">back to list</a>
-
-    <a href="{{ path('producto_edit', {'idProd': producto.idProd}) }}">edit</a>
-
-    {{ include('producto/_delete_form.html.twig') }}
+    <div class="site-section">
+        <div class="justify-content-center gurizone-login p-lg-4 m-lg-5 p-md-4 m-md-3 p-sm-4 m-sm-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="..{{ producto.getFotoProd() }}" alt="Image" class="img-fluid w-75">
+                </div>
+                <div class="col-md-6">
+                    <h2 class="text-black h1">{{ producto.getModeloProd() }}</h2>
+                    <p class="text-black h4">{{ producto.getDescripcion() }}</p>
+                    <hr class="bg-dark">
+                    <p class="text-black h4">Fecha salida: {{ producto.getFechaSalida()|date('Y-m-d') }}</p>
+                    <p><strong class="text-primary h4">Precio: {{ producto.getPrecioUnidad() }}€</strong></p>
+                    <p><strong class="text-primary h4">Talla: {{ producto.getTalla() }}</strong></p>
+                    <p><strong class="text-primary h4">Stock: {{ producto.getStockProd() }}</strong></p>
+                    <p><a href="#" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
+                    {% if 1==2 and usuario=='admin' and producto_de_empleado == true %}
+                        <p><a href="{{ router.generateURL('Producto','editarProducto',{id:producto.getIdProd()}) }}" class="buy-now btn btn-sm btn-primary">EDITAR</a></p>
+                    {% endif %}
+                    <p><a href="?pdf={{ producto.getIdProd }}" class="buy-now btn btn-sm btn-primary">VER EN PDF</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

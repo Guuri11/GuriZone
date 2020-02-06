@@ -15,10 +15,10 @@ class DefaultController extends AbstractController
      */
     public function index()
     {
-        // get the Link repository (it is like our model)
+        // get the Producto repository (it is like our model)
         $repository = $this->getDoctrine()->getRepository(Producto::class);
 
-        // retrieve all links
+        // retrieve all productos
         $productos = $repository->findAll();
 
         // Obtener productos mas vendidos y nuevos

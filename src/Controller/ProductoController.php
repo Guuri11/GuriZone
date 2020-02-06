@@ -9,31 +9,25 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/tienda")
- */
 class ProductoController extends AbstractController
 {
     /**
-     * @Route("/", name="producto_index", methods={"GET"})
+     * @Route("/tienda", name="producto_shop", methods={"GET"})
      */
-    public function index(): Response
-    {
-        $productos = $this->getDoctrine()
-            ->getRepository(Producto::class)
-            ->findAll();
+    public function shop(){
 
-        // ultimo producto
-        $ultimoProducto = $this->getDoctrine()
-            ->getRepository(Producto::class)
-            ->getLatest();
+        // get the Producto repository (it is like our model)
+        $repository = $this->getDoctrine()->getRepository(Producto::class);
 
-        return $this->render('producto/index.html.twig', [
-            'productos' => $productos,
+        $productos = $repository->findAll();
+        $ultimoProducto = $repository->getLatest();
+
+
+        return $this->render('producto/shop.html.twig', [
+            'productos'=>$productos,
             'ultimoProducto'=>$ultimoProducto
         ]);
     }
-
     /**
      * @Route("/new", name="producto_new", methods={"GET","POST"})
      */
@@ -58,12 +52,16 @@ class ProductoController extends AbstractController
     }
 
     /**
-     * @Route("/{idProd}", name="producto_show", methods={"GET"})
+     * @Route("/tienda/{idProd}", name="producto_show", methods={"GET"})
      */
     public function show(Producto $producto): Response
     {
+        $repository = $this->getDoctrine()->getRepository(Producto::class);
+        $ultimoProducto = $repository->getLatest();
+
         return $this->render('producto/show.html.twig', [
             'producto' => $producto,
+            'ultimoProducto'=>$ultimoProducto
         ]);
     }
 

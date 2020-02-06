@@ -32,13 +32,13 @@
                         <div class="col-4 col-md-4 order-2 order-md-1 site-search-icon text-left">
                             <form action="" method="get" class="site-block-top-search">
                                 <button type="submit" class="icon icon-search mr-5 bg-white"></button>
-                                <input type="text" class="form-control border-0" name="search" placeholder="">
+                                <input type="text" class="form-control border-0" name="search" placeholder="{% trans %}BUSCAR{% endtrans %}">
                             </form>
                         </div>
 
                         <div class="col-4 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
                             <div >
-                                <a href="" class=""><img class="img-fluid gurilogo" src="/../imgs/logo_black.png" width="45%"></a>
+                                <a href="{{ url('homepage') }}" class=""><img class="img-fluid gurilogo" src="/../imgs/logo_black.png" width="45%"></a>
                             </div>
                         </div>
                         <div class="col-4 col-md-4 order-3 order-md-3 text-right">
@@ -72,9 +72,9 @@
             <nav class="site-navigation text-right text-md-center" role="navigation">
                 <div class="container">
                     <ul class="site-menu js-clone-nav d-none d-md-block">
-                        <li><a href="">{% trans %}INICIO{% endtrans %}</a></li>
+                        <li><a href="{{ url('homepage') }}">{% trans %}INICIO{% endtrans %}</a></li>
                         <li class="has-children">
-                            <a href="">{% trans %}TIENDA{% endtrans %}</a>
+                            <a href="{{ url('producto_shop') }}">{% trans %}TIENDA{% endtrans %}</a>
                             <ul class="dropdown">
                                 <li><a href="">{% trans %}ACCESORIOS{% endtrans %}</a></li>
                                 <li><a href="">{% trans %}ROPA{% endtrans %}</a></li>
