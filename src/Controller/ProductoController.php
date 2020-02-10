@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Categorias;
 use App\Entity\Producto;
 use App\Form\ProductoType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,6 +12,22 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProductoController extends AbstractController
 {
+
+    /**
+     * @Route("/dashboard/producto", name="producto_index", methods={"GET"})
+     */
+    public function index(): Response
+    {
+        $repository = $this->getDoctrine()->getRepository(Producto::class);
+        $ultimoProducto = $repository->getLatest();
+        $productos =$repository->findAll();
+
+        return $this->render('producto/index.html.twig', [
+            'productos' => $productos,
+            'ultimoProducto'=>$ultimoProducto
+        ]);
+    }
+
     /**
      * @Route("/tienda", name="producto_shop", methods={"GET"})
      */
@@ -29,25 +46,28 @@ class ProductoController extends AbstractController
         ]);
     }
     /**
-     * @Route("/new", name="producto_new", methods={"GET","POST"})
+     * @Route("/dashboard/producto/nuevo", name="producto_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
         $producto = new Producto();
         $form = $this->createForm(ProductoType::class, $producto);
-        $form->handleRequest($request);
+        $repository = $this->getDoctrine()->getRepository(Producto::class);
+        $ultimoProducto = $repository->getLatest();
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($producto);
             $entityManager->flush();
 
-            return $this->redirectToRoute('producto_index');
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('producto/new.html.twig', [
             'producto' => $producto,
             'form' => $form->createView(),
+            'ultimoProducto'=>$ultimoProducto
         ]);
     }
 
@@ -56,6 +76,7 @@ class ProductoController extends AbstractController
      */
     public function show(Producto $producto): Response
     {
+
         $repository = $this->getDoctrine()->getRepository(Producto::class);
         $ultimoProducto = $repository->getLatest();
 
@@ -66,22 +87,24 @@ class ProductoController extends AbstractController
     }
 
     /**
-     * @Route("/{idProd}/edit", name="producto_edit", methods={"GET","POST"})
+     * @Route("/dashboard/producto/editar/{idProd}", name="producto_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Producto $producto): Response
     {
         $form = $this->createForm(ProductoType::class, $producto);
         $form->handleRequest($request);
-
+        $repository = $this->getDoctrine()->getRepository(Producto::class);
+        $ultimoProducto = $repository->getLatest();
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('producto_index');
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('producto/edit.html.twig', [
             'producto' => $producto,
             'form' => $form->createView(),
+            'ultimoProducto'=>$ultimoProducto
         ]);
     }
 
@@ -96,6 +119,6 @@ class ProductoController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('producto_index');
+        return $this->redirectToRoute('homepage');
     }
 }

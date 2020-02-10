@@ -143,5 +143,9 @@ class Usuario
         return $this;
     }
 
+    public function __toString()
+    {
+        return (string) $this->idCli;
+    }
 
 }

@@ -148,7 +148,7 @@ class Producto
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Pedidos", inversedBy="idProd")
-     * @ORM\JoinTable(name="pedido",
+     * @ORM\JoinTable(name="Pedido",
      *   joinColumns={
      *     @ORM\JoinColumn(name="id_prod", referencedColumnName="id_prod")
      *   },

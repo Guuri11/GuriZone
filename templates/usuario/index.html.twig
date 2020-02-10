@@ -3,41 +3,66 @@
 {% block title %}Usuario index{% endblock %}
 
 {% block body %}
-    <h1>Usuario index</h1>
+<div class="">
+    <div class="justify-content-center gurizone-login p-lg-3 m-lg-2 p-md-4 m-md-3 p-sm-4 m-sm-5 table-bordered">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 p-4 mb-4 ml-3">
+                <!--FILTRO ROL-->
+                <div class="btn-group mr-1 ml-md-auto float-right">
+                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuReference" data-toggle="dropdown">Filtrar por Categoria</button>
+                    <div class="dropdown-menu fixed-top" aria-labelledby="dropdownMenuReference">
+                        <a class="dropdown-item" href="?rol=todo&page=1">Todo</a>
+                        <a class="dropdown-item" href="?rol=usuario&page=1">Clientes</a>
+                        <a class="dropdown-item" href="?rol=empleado&page=1">Empleados</a>
+                    </div>
+                </div>
+                <!--FIN FILTRO ROL-->
+            </div>
+        </div>
+        <!--FILTRO TABLA PRODUCTOS-->
+        <div class="table-responsive">
+            <table class="table table-hover table-sm table-responsive-sm table-responsive-md">
+                <thead class="thead-dark sticky-top">
+                    <tr class="text-center">
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>FotoPerfil</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for usuario in usuarios %}
+                    <tr>
+                        <td class="text-center">{{ usuario.idCli }}</td>
+                        <td>{{ usuario.nombre }}</td>
+                        <td>{{ usuario.apellidos }}</td>
+                        <td>{{ usuario.email }}</td>
+                        <td>{{ usuario.password }}</td>
+                        <td>{{ usuario.fotoPerfil }}</td>
+                        <td>
+                            <div>
+                                <form action="{{ path('usuario_index', {'idCli': usuario.idCli}) }}" method="post" id="formUsuario_{{ usuario.getIdCli }}">
+                                    <input type="submit" class="btn btn-primary" value="Actualizar">
+                                </form>
+                            </div>
+                            <div>
+                                <a href="{{ path('usuario_delete', {'idCli': usuario.idCli}) }}"><input type="button" class="btn btn-danger" value="Eliminar"></a>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+        </table>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>IdCli</th>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Email</th>
-                <th>Password</th>
-                <th>FotoPerfil</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for usuario in usuarios %}
-            <tr>
-                <td>{{ usuario.idCli }}</td>
-                <td>{{ usuario.nombre }}</td>
-                <td>{{ usuario.apellidos }}</td>
-                <td>{{ usuario.email }}</td>
-                <td>{{ usuario.password }}</td>
-                <td>{{ usuario.fotoPerfil }}</td>
-                <td>
-                    <a href="{{ path('usuario_show', {'idCli': usuario.idCli}) }}">show</a>
-                    <a href="{{ path('usuario_edit', {'idCli': usuario.idCli}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('usuario_new') }}">Create new</a>
+        <a href="{{ path('usuario_new') }}">Create new</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

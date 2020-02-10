@@ -3,57 +3,96 @@
 {% block title %}Producto index{% endblock %}
 
 {% block body %}
-    <h1>Producto index</h1>
+<div class="">
+    <div class="justify-content-center gurizone-login p-lg-3 m-lg-2 p-md-4 m-md-3 p-sm-4 m-sm-5 table-bordered">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12 border p-4 rounded mb-4 ml-3">
+                <!--FILTRO CATEGORIA-->
+                <div class="btn-group mr-1 ml-md-auto float-right">
+                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuReference" data-toggle="dropdown">Filtrar por Categoria</button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                        <a class="dropdown-item" href="?categoria=todo&page=1">Todo</a>
+                        <a class="dropdown-item" href="?categoria=accesorios&page=1">Accesorios</a>
+                        <a class="dropdown-item" href="?categoria=ropa&page=1">Ropa</a>
+                        <a class="dropdown-item" href="?categoria=zapatillas&page=1">Zapatillas</a>
+                    </div>
+                </div>
+                <!--FIN FILTRO CATEGORIA-->
+                <!--FILTRO FECHA-->
+                <div>
+                    <div class="mt-4">
+                        <h3 class="mb-3 h6 text-uppercase text-black d-block">Filtrar por fecha</h3>
+                        <form action="{{ url('producto_index') }}" method="get">
+                            <label for="fecha_inicial" class="d-flex text-black">Fecha Inicial</label>
+                            <input type="date" id="fecha_inicial" name="fecha_inicial" class="mr-2 mt-1 form-control">
+                            <label for="fecha_final" class="d-flex text-black">Fecha Final</label>
+                            <input type="date" id="fecha_final" class="mr-2 mt-1 form-control" name="fecha_final">
+                            <input type="submit" value="Filtrar" class="btn btn-primary mt-3">
+                        </form>
+                    </div>
+                </div>
+                <!--FIN FILTRO FECHA-->
+            </div>
+        </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>IdProd</th>
-                <th>ModeloProd</th>
-                <th>MarcaProd</th>
-                <th>Color</th>
-                <th>ColorDisp</th>
-                <th>Talla</th>
-                <th>TallaDisp</th>
-                <th>StockProd</th>
-                <th>NumVentasProd</th>
-                <th>FechaSalida</th>
-                <th>PrecioUnidad</th>
-                <th>FotoProd</th>
-                <th>Descripcion</th>
-                <th>Descatalogado</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for producto in productos %}
-            <tr>
-                <td>{{ producto.idProd }}</td>
-                <td>{{ producto.modeloProd }}</td>
-                <td>{{ producto.marcaProd }}</td>
-                <td>{{ producto.color }}</td>
-                <td>{{ producto.colorDisp }}</td>
-                <td>{{ producto.talla }}</td>
-                <td>{{ producto.tallaDisp }}</td>
-                <td>{{ producto.stockProd }}</td>
-                <td>{{ producto.numVentasProd }}</td>
-                <td>{{ producto.fechaSalida ? producto.fechaSalida|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ producto.precioUnidad }}</td>
-                <td>{{ producto.fotoProd }}</td>
-                <td>{{ producto.descripcion }}</td>
-                <td>{{ producto.descatalogado ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('producto_show', {'idProd': producto.idProd}) }}">show</a>
-                    <a href="{{ path('producto_edit', {'idProd': producto.idProd}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="15">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <!--FILTRO TABLA PRODUCTOS-->
 
+        <div class="table-responsive">
+            <table class="table table-hover table-sm table-responsive-sm table-responsive-md">
+                <thead class="thead-dark sticky-top">
+                    <tr>
+                        <th>IdProd</th>
+                        <th>ModeloProd</th>
+                        <th>MarcaProd</th>
+                        <th>Color</th>
+                        <th>ColorDisp</th>
+                        <th>Talla</th>
+                        <th>TallaDisp</th>
+                        <th>StockProd</th>
+                        <th>NumVentasProd</th>
+                        <th>FechaSalida</th>
+                        <th>PrecioUnidad</th>
+                        <th>FotoProd</th>
+                        <th>Descripcion</th>
+                        <th>Descatalogado</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for producto in productos %}
+                    <tr>
+                        <td>{{ producto.idProd }}</td>
+                        <td>{{ producto.modeloProd }}</td>
+                        <td>{{ producto.marcaProd }}</td>
+                        <td>{{ producto.color }}</td>
+                        <td>{{ producto.colorDisp }}</td>
+                        <td>{{ producto.talla }}</td>
+                        <td>{{ producto.tallaDisp }}</td>
+                        <td>{{ producto.stockProd }}</td>
+                        <td>{{ producto.numVentasProd }}</td>
+                        <td>{{ producto.fechaSalida ? producto.fechaSalida|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ producto.precioUnidad }}</td>
+                        <td>{{ producto.fotoProd }}</td>
+                        <td>{{ producto.descripcion }}</td>
+                        <td>{{ producto.descatalogado ? 'Yes' : 'No' }}</td>
+                        <td>
+                            <div>
+                                <a href="{{ path('producto_edit', {'idProd': producto.idProd}) }}"><button type="button" class="btn btn-primary mb-3">Editar</button></a>
+                            </div>
+                            <div>
+                                <a href="{{ path('producto_delete', {'idProd': producto.idProd}) }}"><input type="button" class="btn btn-danger" value="Eliminar"></a>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="15">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     <a href="{{ path('producto_new') }}">Create new</a>
+    </div>
+</div>
 {% endblock %}

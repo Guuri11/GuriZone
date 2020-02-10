@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Producto;
 use App\Entity\Usuario;
 use App\Form\UsuarioType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,21 +14,25 @@ use Symfony\Component\Routing\Annotation\Route;
 class UsuarioController extends AbstractController
 {
     /**
-     * @Route("/", name="usuario_index", methods={"GET"})
+     * @Route("/dashboard/usuario", name="usuario_index", methods={"GET"})
      */
     public function index(): Response
     {
+        $repository = $this->getDoctrine()->getRepository(Producto::class);
+        $ultimoProducto = $repository->getLatest();
+
         $usuarios = $this->getDoctrine()
             ->getRepository(Usuario::class)
             ->findAll();
 
         return $this->render('usuario/index.html.twig', [
             'usuarios' => $usuarios,
+            'ultimoProducto'=>$ultimoProducto
         ]);
     }
 
     /**
-     * @Route("/new", name="usuario_new", methods={"GET","POST"})
+     * @Route("/dashboard/usuario/nuevo", name="usuario_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -49,18 +54,9 @@ class UsuarioController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{idCli}", name="usuario_show", methods={"GET"})
-     */
-    public function show(Usuario $usuario): Response
-    {
-        return $this->render('usuario/show.html.twig', [
-            'usuario' => $usuario,
-        ]);
-    }
 
     /**
-     * @Route("/{idCli}/edit", name="usuario_edit", methods={"GET","POST"})
+     * @Route("/dashboard/editar/{idCli}", name="usuario_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Usuario $usuario): Response
     {
@@ -91,5 +87,31 @@ class UsuarioController extends AbstractController
         }
 
         return $this->redirectToRoute('usuario_index');
+    }
+
+    /**
+     * @Route("/dashboard", name="dashboard")
+     */
+    public function dashboard(){
+        $repository = $this->getDoctrine()->getRepository(Producto::class);
+        $ultimoProducto = $repository->getLatest();
+
+
+        return $this->render('usuario/dashboard.html.twig', [
+            'ultimoProducto'=>$ultimoProducto
+        ]);
+    }
+
+    /**
+     * @Route("/contacto", name="contacto")
+     */
+    public function contact(){
+        $repository = $this->getDoctrine()->getRepository(Producto::class);
+        $ultimoProducto = $repository->getLatest();
+
+
+        return $this->render('usuario/contact.html.twig', [
+            'ultimoProducto'=>$ultimoProducto
+        ]);
     }
 }

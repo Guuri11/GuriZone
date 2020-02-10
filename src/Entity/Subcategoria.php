@@ -55,7 +55,7 @@ class Subcategoria
         return $this;
     }
 
-    public function getCat(): ?Categorias
+    public function getCat():?Categorias
     {
         return $this->cat;
     }
@@ -67,5 +67,8 @@ class Subcategoria
         return $this;
     }
 
-
+    public function __toString()
+    {
+        return (string) $this->idSub;
+    }
 }
