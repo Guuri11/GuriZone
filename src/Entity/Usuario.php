@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Usuario
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="Usuario", indexes={@ORM\Index(name="rol", columns={"rol"})})
  * @ORM\Entity
  */
-class Usuario
+class Usuario implements UserInterface
 {
     /**
      * @var int
@@ -131,7 +132,7 @@ class Usuario
         return $this;
     }
 
-    public function getRol(): ?Roles
+    public function getRol()
     {
         return $this->rol;
     }
@@ -148,4 +149,38 @@ class Usuario
         return (string) $this->idCli;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getRoles()
+    {
+        // TODO: Implement getRoles() method.
+        return $this->getRol();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUsername()
+    {
+        // TODO: Implement getUsername() method.
+        return $this->getEmail();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
 }
