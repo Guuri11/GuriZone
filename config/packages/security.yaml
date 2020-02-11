@@ -17,7 +17,7 @@ security:
             security: false
         main:
             provider: users
-            anonymous: ~
+            anonymous: lazy
             form_login:
                 login_path: login
                 check_path: login
