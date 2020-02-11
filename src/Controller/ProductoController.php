@@ -119,6 +119,6 @@ class ProductoController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('homepage');
+        return $this->redirectToRoute('producto_index');
     }
 }
