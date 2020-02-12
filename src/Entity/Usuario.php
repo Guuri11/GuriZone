@@ -132,7 +132,7 @@ class Usuario implements UserInterface
         return $this;
     }
 
-    public function getRol()
+    public function getRol(): Roles
     {
         return $this->rol;
     }
@@ -154,8 +154,7 @@ class Usuario implements UserInterface
      */
     public function getRoles()
     {
-        // TODO: Implement getRoles() method.
-        return $this->getRol();
+        return $this->getRol()->getRoles();
     }
 
     /**

@@ -10,7 +10,7 @@
         <div class="justify-content-center gurizone-login p-lg-4 m-lg-5 p-md-4 m-md-3 p-sm-4 m-sm-5">
         <h1 class="text-center">Iniciar sesión</h1>
             {% if error %}
-                <p class="text-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+                <p class="text-danger">Error en el inicio de sesion</p>
             {% endif %}
         <form action="{{ path('login') }}" method="post">
             <div class="form-group">
