@@ -76,7 +76,7 @@ class UsuarioController extends AbstractController
     }
 
     /**
-     * @Route("/dashboard/usuario/{IdCli}", name="usuario_delete", methods={"DELETE"})
+     * @Route("/dashboard/usuario/borrar/{idCli}", name="usuario_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Usuario $usuario): Response
     {

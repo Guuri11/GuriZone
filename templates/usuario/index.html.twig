@@ -49,7 +49,11 @@
                                 </form>
                             </div>
                             <div>
-                                <a href="{{ path('usuario_delete', {'idCli': usuario.idCli}) }}"><input type="button" class="btn btn-danger" value="Eliminar"></a>
+                                <form method="post" action="{{ path('usuario_delete', {'idCli': usuario.idCli}) }}" onsubmit="return confirm('Estás seguro de que quieres borrar este usuario?');">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ usuario.idCli) }}">
+                                    <button class="btn btn-danger">Eliminar</button>
+                                </form>
                             </div>
                         </td>
                     </tr>

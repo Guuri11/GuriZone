@@ -80,7 +80,11 @@
                                 <a href="{{ path('producto_edit', {'idProd': producto.idProd}) }}"><button type="button" class="btn btn-primary mb-3">Editar</button></a>
                             </div>
                             <div>
-                                <a href="{{ path('producto_delete', {'idProd': producto.idProd}) }}"><input type="button" class="btn btn-danger" value="Eliminar"></a>
+                                <form method="post" action="{{ path('producto_delete', {'idProd': producto.idProd}) }}" onsubmit="return confirm('Estás seguro de que quieres borrar este usuario?');">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ producto.idProd) }}">
+                                    <button class="btn btn-danger">Eliminar</button>
+                                </form>
                             </div>
                         </td>
                     </tr>
