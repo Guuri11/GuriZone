@@ -17,7 +17,17 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email')
+            ->add('nombre',null,[
+                'required'=>true
+            ])
+            ->add('apellidos',null,
+                [
+                    'required'=>true
+                ])
+            ->add('email',null,
+                [
+                    'required'=>true
+                ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -40,7 +50,9 @@ class RegistrationFormType extends AbstractType
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
-                ],
+                ]
+                ,
+                'required'=>true
             ])
         ;
     }
