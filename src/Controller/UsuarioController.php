@@ -114,4 +114,20 @@ class UsuarioController extends AbstractController
             'ultimoProducto'=>$ultimoProducto
         ]);
     }
+
+    /**
+     * @Route("/mi-perfil", name="profile")
+     */
+    public function profile(){
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $repository = $this->getDoctrine()->getRepository(Producto::class);
+        $ultimoProducto = $repository->getLatest();
+
+
+        return $this->render('usuario/profile.html.twig', [
+            'ultimoProducto'=>$ultimoProducto
+        ]);
+    }
 }

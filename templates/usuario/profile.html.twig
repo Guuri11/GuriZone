@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Usuario index{% endblock %}
+
+{% block body %}
+    <div class="site-section">
+        <div class="justify-content-center gurizone-login p-lg-4 m-lg-5 p-md-4 m-md-3 p-sm-4 m-sm-5">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div>
+                        <img src="../{{ app.user.fotoPerfil }}" width="100px">
+                    </div>
+                    {#
+                    {% if errores.fallo_actualizacion is defined %}
+                        <p class="text-danger mt-1">{{ errores.fallo_actualizacion }}</p>
+                    {% elseif errores.fichero_no_foto is defined %}
+                        <p class="text-danger mt-1">{{ errores.fichero_no_foto }}</p>
+                    {% elseif errores.tamano is defined %}
+                        <p class="text-danger mt-1">{{ errores.tamano }}</p>
+                    {% elseif errores.formato is defined %}
+                        <p class="text-danger mt-1">{{ errores.formato }}</p>
+                    {% endif %}
+                    #}
+                    <div class="container mt-3">
+                        <form action="{{ url('profile') }}" method="post" enctype="multipart/form-data">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="foto_perfil_nueva" name="foto_perfil_nueva">
+                                <label class="custom-file-label" for="customFile">Cambiar foto</label>
+                                <input type="submit" value="Actualizar foto" class="btn btn-primary mt-3 mb-3">
+                            </div>
+                        </form>
+                    </div>
+                    <hr/>
+                </div>
+                <div class="col-12">
+                    <h3 class="text-black text-center">{{ app.user.nombre |upper }}</h3>
+                    <div class="container">
+                        <p>Usuario: {{ app.user.nombre }}</p>
+                        <p>Email: {{ app.user.email }}</p>
+                    </div>
+                    <div class="container mt-3">
+                        <a href="#cambiarPassword" class="btn btn-primary">Cambiar contraseña</a>
+                    </div>
+                    {% if app.user.rol == 'ROLE_EMPLEADO' or app.user.rol == 'ROLE_ADMIN' %}
+                        <div class="container mt-3">
+                            <a href="{{ url('producto_new') }}" class="btn btn-primary">Crear producto</a>
+                        </div>
+                        <div class="container mt-3">
+                            <a href="{{ url('producto_index') }}" class="btn btn-primary">Gestionar productos</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

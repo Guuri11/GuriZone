@@ -44,8 +44,16 @@
                         <div class="col-4 col-md-4 order-3 order-md-3 text-right">
                             <div class="site-top-icons">
                                 <ul class="site-menu">
+                                    {% if app.token.user == 'anon.' %}
                                     <li><a href="{{ url('app_register') }}"><span class="icon icon-person_add "></span> {% trans %}REGISTRARSE{% endtrans %}</a>
                                     <li><a href="{{ url('login') }}"><span class="icon icon-sign-in"></span> {% trans %}INICIAR SESION{% endtrans %}</a></li>
+                                    {% elseif app.user.rol == 'ROLE_CLIENTE' or app.user.rol == 'ROLE_EMPLEADO' %} {# SI EL USUARIO ES NORMAL: OPCION PERFIL Y LOGOUT #}
+                                        <li><a href="{{ url('app_logout') }}"><span class="icon icon-sign-out"></span> {% trans %}CERRAR SESION{% endtrans %}</a></li>
+                                        <li><a href="{{ url('profile') }}"><span class="icon icon-home"></span>{% trans %}MI PERFIL{% endtrans %}</a></li>
+                                    {% elseif app.user.rol == 'ROLE_ADMIN' %} {# SI EL USUARIO ES ADMIN: OPCION DASHBOARD Y LOGOUT #}
+                                        <li><a href="{{ url('app_logout') }}"><span class="icon icon-sign-out"></span>{% trans %}CERRAR SESION{% endtrans %}</a></li>
+                                        <li><a href="{{ url('dashboard') }}"><span class="icon icon-dashboard"></span>{% trans %}ADMIN{% endtrans %}</a></li>
+                                    {% endif %}
                                     <li>
                                         <a href="#" class="site-cart">
                                             <span class="icon icon-shopping_cart"></span>{% trans %}CARRITO{% endtrans %}
