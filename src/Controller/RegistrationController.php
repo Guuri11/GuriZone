@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Producto;
+use App\Entity\Roles;
 use App\Entity\Usuario;
 use App\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +20,8 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new Usuario();
+        $rol = new Roles();
+        $rol->setTipoRol('["ROLE_CLIENTE"]');
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
         $repository = $this->getDoctrine()->getRepository(Producto::class);
@@ -26,7 +29,10 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            $user->setPassword(
+            $user
+                ->setRol($rol)
+                ->setFotoPerfil('imgs/default_profile.jpg')
+                ->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
                     $form->get('plainPassword')->getData()
@@ -39,7 +45,7 @@ class RegistrationController extends AbstractController
 
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('');
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('registration/register.html.twig', [

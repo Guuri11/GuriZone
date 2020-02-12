@@ -50,4 +50,9 @@ class Roles
         return [$this->getTipoRol()];
     }
 
+    public function __toString()
+    {
+        return (string) $this->getTipoRol();
+    }
+
 }
