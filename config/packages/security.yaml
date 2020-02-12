@@ -18,11 +18,13 @@ security:
         main:
             provider: users
             anonymous: lazy
+            logout:
+                path: app_logout
             form_login:
                 login_path: login
                 check_path: login
 
-            # activate different ways to authenticate
+                # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
             # https://symfony.com/doc/current/security/impersonating_user.html
