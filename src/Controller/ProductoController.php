@@ -55,9 +55,14 @@ class ProductoController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Producto::class);
         $ultimoProducto = $repository->getLatest();
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            if (empty($producto->getFotoProd()))
+                $producto->setFotoProd('../imgs/productos/default_product_image.png');
+            $producto->setColorDisp($producto->getStockProd());
+            $producto->setTallaDisp($producto->getStockProd());
+            $producto->setFechaSalida(new \DateTime(date('Y-m-d H:i:s')));
+
             $entityManager->persist($producto);
             $entityManager->flush();
 

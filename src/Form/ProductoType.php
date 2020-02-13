@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Producto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,16 +18,22 @@ class ProductoType extends AbstractType
             ->add('modeloProd')
             ->add('marcaProd')
             ->add('color')
-            ->add('colorDisp')
             ->add('talla')
-            ->add('tallaDisp')
             ->add('stockProd')
-            ->add('numVentasProd')
-            ->add('fechaSalida')
             ->add('precioUnidad')
-            ->add('fotoProd')
-            ->add('descripcion')
-            ->add('descatalogado')
+            ->add('fotoProd',TextType::class,[
+                'label'=>'Foto Perfil',
+                'data'=>'/imgs/productos/'
+            ])
+            ->add('descripcion',TextareaType::class)
+            ->add('descatalogado',ChoiceType::class,[
+                'expanded'=>true,
+                'multiple'=>false,
+                'choices'=>[
+                    'Dar alta'=>'0',
+                    'Dar baja'=>'1'
+                ]
+            ])
             ->add('categoriaProd', ChoiceType::class,[
                 'choices'=>[
                         'Accesorios'=>'1',
@@ -49,8 +57,6 @@ class ProductoType extends AbstractType
                         'Adidas'=>'11',
                     ]
                 ])
-            ->add('idEmpleado')
-            ->add('idPed')
         ;
     }
 

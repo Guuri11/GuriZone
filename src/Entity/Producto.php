@@ -294,6 +294,8 @@ class Producto
 
     public function getFotoProd(): ?string
     {
+        if (empty($this->foto_prod) || !file_exists('.'.$this->foto_prod))
+            $this->foto_prod = '/imgs/productos/default_product_image.png';
         return $this->fotoProd;
     }
 

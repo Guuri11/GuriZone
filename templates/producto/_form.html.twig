@@ -13,6 +13,40 @@
             <span class="text-black text-uppercase">{{ form_label(form.categoriaProd) }}</span><span class="text-danger"> *</span>
             {{ form_widget(form.categoriaProd,{'attr':{'class':'custom-select'}}) }}
         </div>
+        <div class="col-md-12">
+            <span class="text-black text-uppercase">{{ form_label(form.subcategoriaProd) }}</span><span class="text-danger"> *</span>
+            {{ form_widget(form.subcategoriaProd,{'attr':{'class':'custom-select'}}) }}
+        </div>
+        <div class="col-md-12">
+            <span class="text-black text-uppercase">{{ form_label(form.color) }}</span><span class="text-danger"> *</span>
+            {{ form_widget(form.color,{'attr':{'class':'form-control'}}) }}
+        </div>
+        <div class="col-md-12">
+            <span class="text-black text-uppercase">{{ form_label(form.talla) }}</span><span class="text-danger"> *</span>
+            {{ form_widget(form.talla,{'attr':{'class':'form-control'}}) }}
+        </div>
+        <div class="col-md-12">
+            <span class="text-black text-uppercase">{{ form_label(form.stockProd) }}</span><span class="text-danger"> *</span>
+            {{ form_widget(form.stockProd,{'attr':{'class':'form-control'}}) }}
+        </div>
+        <div class="col-md-12">
+            <span class="text-black text-uppercase">{{ form_label(form.precioUnidad) }}</span><span class="text-danger"> *</span>
+            {{ form_widget(form.precioUnidad,{'attr':{'class':'form-control'}}) }}
+        </div>
+        <div class="col-md-12">
+            <span class="text-black text-uppercase">{{ form_label(form.fotoProd) }}</span><span class="text-danger"> *</span>
+            <div>
+                {{ form_widget(form.fotoProd,{'attr':{'class':'form-control'}}) }}
+            </div>
+        </div>
+        <div class="col-md-12">
+            <span class="text-black text-uppercase">{{ form_label(form.descatalogado) }}</span><span class="text-danger"> *</span>
+            {{ form_widget(form.descatalogado,{'attr':{'class':'radio-inline'}}) }}
+        </div>
+        <div class="col-md-12">
+            <span class="text-black text-uppercase">{{ form_label(form.descripcion) }}</span><span class="text-danger"> *</span>
+            {{ form_widget(form.descripcion,{'attr':{'class':'form-control','cols':'30','rows':'7'}}) }}
+        </div>
     </div>
 </div>
 <div class="form-group row">

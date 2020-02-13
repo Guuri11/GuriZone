@@ -8,8 +8,8 @@
         <h1 class="text-center text-black-50">CREAR PRODUCTO</h1>
         <div class="col-md-12 justify-content-center">
         {{ include('producto/_form.html.twig') }}
+            <a href="{{ path('dashboard') }}"><button class="btn btn-primary mt-3 float-right">back to list</button></a>
         </div>
-        <a href="{{ path('homepage') }}">back to list</a>
     </div>
 </div>
 {% endblock %}
