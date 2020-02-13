@@ -38,6 +38,13 @@ class Roles
         return $this->tipoRol;
     }
 
+    public function setRol(int $idRol): self
+    {
+        $this->idRol = $idRol;
+
+        return $this;
+    }
+
     public function setTipoRol(string $tipoRol): self
     {
         $this->tipoRol = $tipoRol;

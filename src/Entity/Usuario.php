@@ -61,7 +61,6 @@ class Usuario implements UserInterface
 
     /**
      * @var \Roles
-     *
      * @ORM\ManyToOne(targetEntity="Roles",cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="rol", referencedColumnName="id_rol")

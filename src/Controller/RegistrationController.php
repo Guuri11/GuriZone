@@ -21,7 +21,7 @@ class RegistrationController extends AbstractController
     {
         $user = new Usuario();
         $rol = new Roles();
-        $rol->setTipoRol('["ROLE_CLIENTE"]');
+        $rol->setTipoRol('ROLE_CLIENTE');
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
         $repository = $this->getDoctrine()->getRepository(Producto::class);
