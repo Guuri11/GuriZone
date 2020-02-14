@@ -59,7 +59,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for producto in productos %}
+                {% for producto in paginator.results %}
                     <tr>
                         <td>{{ producto.idProd }}</td>
                         <td>{{ producto.modeloProd }}</td>
@@ -97,6 +97,39 @@
             </table>
         </div>
     <a href="{{ path('producto_new') }}">Create new</a>
+        <!--PAGINACION:-->
+
+        {% if paginator.toPaginate %}
+            <div class="row" data-aos="fade-up">
+                <div class="col-md-12 text-center">
+                    <div class="site-block-27">
+                        <ul>
+                            {% if paginator.previousPage %}
+                                <li class="prev"><a href="{{ path('producto_index_paginated', {page: paginator.previousPage}) }}" rel="previous"><</a></li>
+                            {% else %}
+                                <li class="prev disabled"><span><</span></li>
+                            {% endif %}
+
+                            {% for i in 1..paginator.lastPage %}
+                                {% if i == paginator.currentPage %}
+                                    <li class="active"><span>{{ i }} <span class="sr-only">{{ paginator.currentPage }}</span></span></li>
+                                {% else %}
+                                    <li><a href="{{ path('producto_index_paginated', {page: i}) }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if paginator.hasNextPage %}
+                                <li class="prev"><a href="{{ path('producto_index_paginated', {page: paginator.nextPage}) }}" rel="previous">></a></li>
+                            {% else %}
+                                <li class="next disabled"><span>></span></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <!--FIN PAGINACION-->
     </div>
 </div>
 {% endblock %}

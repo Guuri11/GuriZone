@@ -16,16 +16,18 @@ class ProductoController extends AbstractController
 {
 
     /**
-     * @Route("/dashboard/producto", name="producto_index", methods={"GET"})
+     * @Route("/dashboard/producto", defaults={"page": "1"}, name="producto_index", methods={"GET"})
+     * @Route("/dashboard/producto/page/{page<[1-9]\d*>}", defaults={"_format"="html"}, methods="GET", name="producto_index_paginated")
      */
-    public function index(): Response
+    public function index(int $page, ProductoRepository $productos): Response
     {
         $repository = $this->getDoctrine()->getRepository(Producto::class);
         $ultimoProducto = $repository->getLatest();
-        $productos =$repository->findAll();
+        $productos = $productos->getAll($page);
+
 
         return $this->render('producto/index.html.twig', [
-            'productos' => $productos,
+            'paginator' => $productos,
             'ultimoProducto'=>$ultimoProducto
         ]);
     }

@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Categorias;
 use App\Entity\Producto;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -38,12 +40,8 @@ class ProductoType extends AbstractType
                     'Dar baja'=>'1'
                 ]
             ])
-            ->add('categoriaProd', ChoiceType::class,[
-                'choices'=>[
-                        'Accesorios'=>'1',
-                        'Ropa'=>'2',
-                        'Zapatillas'=>'3'
-                    ]
+            ->add('categoriaProd', EntityType::class,[
+                'class'=>Categorias::class,
                 ])
             ->add('subcategoriaProd', ChoiceType::class,
                 [

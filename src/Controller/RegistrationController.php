@@ -20,17 +20,16 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new Usuario();
-        $rol = new Roles();
-        $rol->setTipoRol('ROLE_CLIENTE');
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
         $repository = $this->getDoctrine()->getRepository(Producto::class);
+        $repoRole = $this->getDoctrine()->getRepository(Roles::class);
         $ultimoProducto = $repository->getLatest();
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user
-                ->setRol($rol)
+                ->setRol($repoRole->findOneBy(['tipoRol' => 'ROLE_CLIENTE']))
                 ->setFotoPerfil('imgs/default_profile.jpg')
                 ->setPassword(
                 $passwordEncoder->encodePassword(
