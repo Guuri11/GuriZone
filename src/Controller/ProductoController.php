@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Categorias;
 use App\Entity\Producto;
 use App\Form\ProductoType;
+use App\Repository\ProductoRepository;
+use http\Client\Curl\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,19 +31,20 @@ class ProductoController extends AbstractController
     }
 
     /**
-     * @Route("/tienda", name="producto_shop", methods={"GET"})
+     * @Route("/tienda", defaults={"page": "1"}, name="producto_shop", methods={"GET"})
+     * @Route("/tienda/page/{page<[1-9]\d*>}", defaults={"_format"="html"}, methods="GET", name="producto_shop_paginated")
      */
-    public function shop(){
+    public function shop(int $page, ProductoRepository $productos): Response{
 
         // get the Producto repository (it is like our model)
         $repository = $this->getDoctrine()->getRepository(Producto::class);
 
-        $productos = $repository->findAll();
+        $productos = $productos->getAll($page);
         $ultimoProducto = $repository->getLatest();
 
 
         return $this->render('producto/shop.html.twig', [
-            'productos'=>$productos,
+            'paginator'=>$productos,
             'ultimoProducto'=>$ultimoProducto
         ]);
     }
@@ -55,14 +58,9 @@ class ProductoController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Producto::class);
         $ultimoProducto = $repository->getLatest();
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            if (empty($producto->getFotoProd()))
-                $producto->setFotoProd('../imgs/productos/default_product_image.png');
-            $producto->setColorDisp($producto->getStockProd());
-            $producto->setTallaDisp($producto->getStockProd());
-            $producto->setFechaSalida(new \DateTime(date('Y-m-d H:i:s')));
-
             $entityManager->persist($producto);
             $entityManager->flush();
 

@@ -4,6 +4,7 @@
 namespace App\Repository;
 
 
+use App\Pagination\Paginator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use App\Entity\Producto;
@@ -25,5 +26,11 @@ class ProductoRepository extends ServiceEntityRepository
             ->setMaxResults(1);
 
             return $query->getResult();
+    }
+
+    public function getAll(int $page=1){
+        $query = $this->createQueryBuilder('producto');
+
+        return (new Paginator($query))->paginate($page);
     }
 }

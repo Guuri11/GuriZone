@@ -27,11 +27,11 @@
                         </div>
                         <!--PRODUCTOS-->
                         <div class="row mb-5">
-                            {% for producto in productos %}
+                            {% for producto in paginator.results %}
                                 <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
                                     <div class="block-4 text-center border">
                                         <figure class="block-4-image">
-                                            <a href="{{ url('producto_show',{'idProd': producto.idProd}) }}"><img src=".{{ producto.getFotoProd }}" alt="Image placeholder" class="img-fluid"></a>
+                                            <a href="{{ url('producto_show',{'idProd': producto.idProd}) }}"><img src="../..{{ producto.getFotoProd }}" alt="Image placeholder" class="img-fluid"></a>
                                         </figure>
                                         <div class="block-4-text p-4">
                                             <h3><a href="">{{ producto.getModeloProd }}</a></h3>
@@ -44,44 +44,41 @@
                         </div>
                         <!--FIN PRODUCTOS-->
 
-                        <!--PAGINACION: Segun los filtros de busqueda utilizara un tipo de paginada u otro para la redireccion--
+                        <!--PAGINACION:-->
 
+                        {% if paginator.toPaginate %}
                         <div class="row" data-aos="fade-up">
                             <div class="col-md-12 text-center">
                                 <div class="site-block-27">
-                                {% if 1==2 %}
-                                    {% if busqueda is null and fecha_inicial is null and fecha_final is null %}
-                                        <ul>
-                                            <li><a href="?categoria={{ categoria }}&page={{ pagina <= 0 ? paginacion.getPagina-1:'1' }}"><</a></li>
-                                            {% for i in 1..paginacion.getNumPaginas %}
-                                                <li><a href="{{ router.generaterURL('Producto','catalogo') }}?categoria={{ categoria }}&page={{ i }}"><span>{{ i }}</span></a></li>
-                                            {% endfor %}
-                                            <li><a href="?categoria={{ categoria }}&page={{ paginacion.getPagina>=paginacion.getNumPaginas ? '1':paginacion.getPagina+1 }}">&gt;</a></li>
-                                        </ul>
-                                    {% elseif fecha_inicial is not null and fecha_final is not null %}
-                                        <ul>
-                                            <li><a href="?fecha_inicial={{ fecha_inicial }}&fecha_final={{ fecha_final }}&page={{ pagina<=0 ? paginacion.getPagina-1:'1' }}"><</a></li>
-                                            {% for i in 1..paginacion.getNumPaginas %}
-                                                <li><a href="?fecha_inicial={{ fecha_inicial }}&fecha_final={{ fecha_final }}&page={{ i }}"><span>{{ i }}</span></a></li>
-                                            {% endfor %}
-                                            <li><a href="?fecha_inicial={{ fecha_inicial }}&fecha_final={{ fecha_final }}&page={{ paginacion.getPagina>=paginacion.getNumPaginas ? '1':paginacion.getPagina+1 }}">&gt;</a></li>
-                                        </ul>
+                                    <ul>
+                                    {% if paginator.previousPage %}
+                                        <li class="prev"><a href="{{ path('producto_shop_paginated', {page: paginator.previousPage}) }}" rel="previous"><</a></li>
                                     {% else %}
-                                        <ul>
-                                            <li><a href="?search={{ paginacion.getBusqueda }}&page={{ pagina<=0 ? paginacion.getPagina-1:'1' }}"><</a></li>
-                                            {% for i in 1..paginacion.getNumPaginas %}
-                                                <li><a href="?search={{ paginacion.getBusqueda }}&page={{ i }}"><span>{{ i }}</span></a></li>
-                                            {% endfor %}
-                                            <li><a href="?search={{ paginacion.getBusqueda }}&page={{ paginacion.getPagina>=paginacion.getNumPaginas ? '1':paginacion.getPagina+1 }}">&gt;</a></li>
-                                        </ul>
+                                        <li class="prev disabled"><span><</span></li>
                                     {% endif %}
-                                    
+
+                                    {% for i in 1..paginator.lastPage %}
+                                        {% if i == paginator.currentPage %}
+                                            <li class="active"><span>{{ i }} <span class="sr-only">{{ paginator.currentPage }}</span></span></li>
+                                        {% else %}
+                                            <li><a href="{{ path('producto_shop_paginated', {page: i}) }}">{{ i }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if paginator.hasNextPage %}
+                                        <li class="prev"><a href="{{ path('producto_shop_paginated', {page: paginator.nextPage}) }}" rel="previous">></a></li>
+                                    {% else %}
+                                        <li class="next disabled"><span>></span></li>
                                     {% endif %}
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                        <--FIN PAGINACION-->
-                        
+                        {% endif %}
+
+                        <!--FIN PAGINACION-->
+
+
                         <!--FILTRO CATEGORIA/FECHA-->
                     </div>
                     <div class="col-md-3 order-1 mb-5 mb-md-0">

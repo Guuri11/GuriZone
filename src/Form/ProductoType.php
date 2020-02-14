@@ -18,8 +18,12 @@ class ProductoType extends AbstractType
             ->add('modeloProd')
             ->add('marcaProd')
             ->add('color')
+            ->add('colorDisp')
             ->add('talla')
+            ->add('tallaDisp')
             ->add('stockProd')
+            ->add('numVentasProd')
+            ->add('fechaSalida')
             ->add('precioUnidad')
             ->add('fotoProd',TextType::class,[
                 'label'=>'Foto Perfil',
@@ -57,6 +61,7 @@ class ProductoType extends AbstractType
                         'Adidas'=>'11',
                     ]
                 ])
+            ->add('idEmpleado')
         ;
     }
 
