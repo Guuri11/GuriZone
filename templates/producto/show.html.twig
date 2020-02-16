@@ -18,8 +18,10 @@
                     <p><strong class="text-primary h4">Talla: {{ producto.getTalla() }}</strong></p>
                     <p><strong class="text-primary h4">Stock: {{ producto.getStockProd() }}</strong></p>
                     <p><a href="#" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
-                    {% if 1==2 and usuario=='admin' and producto_de_empleado == true %}
-                        <p><a href="{{ router.generateURL('Producto','editarProducto',{id:producto.getIdProd()}) }}" class="buy-now btn btn-sm btn-primary">EDITAR</a></p>
+                    {% if app.user is not null %}
+                        {% if app.user.rol == 'ROLE_ADMIN' or app.user.rol == 'ROLE_EMPLEADO' %}
+                            <p><a href="{{ path('producto_edit', {'idProd': producto.idProd}) }}" class="buy-now btn btn-sm btn-primary">EDITAR</a></p>
+                        {% endif %}
                     {% endif %}
                     <p><a href="?pdf={{ producto.getIdProd }}" class="buy-now btn btn-sm btn-primary">VER EN PDF</a></p>
                 </div>

@@ -29,7 +29,8 @@ class ProductoRepository extends ServiceEntityRepository
     }
 
     public function getAll(int $page=1){
-        $query = $this->createQueryBuilder('producto');
+        $query = $this->createQueryBuilder('p')
+        ->orderBy('p.idProd','DESC');
 
         return (new Paginator($query))->paginate($page);
     }
