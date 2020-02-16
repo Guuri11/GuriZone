@@ -19,10 +19,20 @@ class ProductoController extends AbstractController
      * @Route("/dashboard/producto", defaults={"page": "1"}, name="producto_index", methods={"GET"})
      * @Route("/dashboard/producto/page/{page<[1-9]\d*>}", defaults={"_format"="html"}, methods="GET", name="producto_index_paginated")
      */
-    public function index(int $page, ProductoRepository $productos): Response
+    public function index(Request $request,int $page, ProductoRepository $productos): Response
     {
         $repository = $this->getDoctrine()->getRepository(Producto::class);
         $ultimoProducto = $repository->getLatest();
+
+        // Variables de filtro
+        $search = null;
+        $category = null;
+        $startDate = null;
+        $endDate = null;
+
+        if ($request->query->has('categoria'))
+            $category = $request->query->get('categoria');
+
         $productos = $productos->getAll($page);
 
 
