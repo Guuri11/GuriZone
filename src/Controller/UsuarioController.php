@@ -36,6 +36,9 @@ class UsuarioController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $repository = $this->getDoctrine()->getRepository(Producto::class);
+        $ultimoProducto = $repository->getLatest();
+
         $usuario = new Usuario();
         $form = $this->createForm(UsuarioType::class, $usuario);
         $form->handleRequest($request);
@@ -51,6 +54,7 @@ class UsuarioController extends AbstractController
         return $this->render('usuario/new.html.twig', [
             'usuario' => $usuario,
             'form' => $form->createView(),
+            'ultimoProducto'=>$ultimoProducto
         ]);
     }
 
@@ -60,6 +64,9 @@ class UsuarioController extends AbstractController
      */
     public function edit(Request $request, Usuario $usuario): Response
     {
+        $repository = $this->getDoctrine()->getRepository(Producto::class);
+        $ultimoProducto = $repository->getLatest();
+
         $form = $this->createForm(UsuarioType::class, $usuario);
         $form->handleRequest($request);
 
@@ -72,6 +79,7 @@ class UsuarioController extends AbstractController
         return $this->render('usuario/edit.html.twig', [
             'usuario' => $usuario,
             'form' => $form->createView(),
+            'ultimoProducto'=>$ultimoProducto
         ]);
     }
 

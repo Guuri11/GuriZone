@@ -42,8 +42,8 @@
                         <td>{{ usuario.fotoPerfil }}</td>
                         <td>
                             <div>
-                                <form action="{{ path('usuario_index', {'idCli': usuario.idCli}) }}" method="post" id="formUsuario_{{ usuario.getIdCli }}">
-                                    <input type="submit" class="btn btn-primary" value="Actualizar">
+                                <form action="{{ path('usuario_edit', {'idCli': usuario.idCli}) }}" method="post" id="formUsuario_{{ usuario.getIdCli }}">
+                                    <input type="submit" class="btn btn-primary" value="Editar">
                                 </form>
                             </div>
                             <div>

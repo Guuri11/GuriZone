@@ -3,9 +3,13 @@
 {% block title %}New Usuario{% endblock %}
 
 {% block body %}
-    <h1>Create new Usuario</h1>
-
+<div class="container">
+    <div class="justify-content-center gurizone-crear p-lg-4 m-lg-3 p-md-4 m-md-3 p-sm-4 m-sm-5">
+        <h1 class="text-center text-black-50">CREAR USUARIO</h1>
+        <div class="col-md-12 justify-content-center">
     {{ include('usuario/_form.html.twig') }}
-
     <a href="{{ path('usuario_index') }}">back to list</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

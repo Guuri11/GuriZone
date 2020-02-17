@@ -52,7 +52,7 @@ class Roles
         return $this;
     }
 
-    public function getRoles():array
+    public function getRoles():?array
     {
         return [$this->getTipoRol()];
     }
