@@ -57,11 +57,11 @@ class ProductoRepository extends ServiceEntityRepository
         if ($startDate !== null){
             $query->andWhere('p.fechaSalida >= :startDate')
                 ->orderBy('p.idProd',' ASC')
-                ->setParameter('startDate',$startDate);
+                ->setParameter('startDate',$startDate->format('Y-m-d H:i:s'));
         }
         if ($endDate !== null){
             $query->andWhere('p.fechaSalida <= :endDate')
-                ->setParameter('endDate',$endDate);
+                ->setParameter('endDate',$endDate->format('Y-m-d H:i:s'));
 
         }
 

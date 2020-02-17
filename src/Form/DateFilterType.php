@@ -13,7 +13,6 @@ class DateFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setMethod('GET')
             ->add('fecha_inicial',DateType::class,
             [
                 'required'=>false,
