@@ -34,7 +34,7 @@
                                             <a href="{{ url('producto_show',{'idProd': producto.idProd}) }}"><img src="../..{{ producto.getFotoProd }}" alt="Image placeholder" class="img-fluid"></a>
                                         </figure>
                                         <div class="block-4-text p-4">
-                                            <h3><a href="">{{ producto.getModeloProd }}</a></h3>
+                                            <h3><a href="{{ url('producto_show',{'idProd': producto.idProd}) }}">{{ producto.getModeloProd }}</a></h3>
                                             <p class="mb-0">{{ producto.getMarcaProd }}</p>
                                             <p class="text-primary font-weight-bold">{{ producto.getPrecioUnidad }}€</p>
                                         </div>

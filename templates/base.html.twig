@@ -84,9 +84,9 @@
                         <li class="has-children">
                             <a href="{{ url('producto_shop') }}">{% trans %}TIENDA{% endtrans %}</a>
                             <ul class="dropdown">
-                                <li><a href="?categoria=accesorios">{% trans %}ACCESORIOS{% endtrans %}</a></li>
-                                <li><a href="?categoria=ropa">{% trans %}ROPA{% endtrans %}</a></li>
-                                <li><a href="?categoria=zapatillas">{% trans %}ZAPATILLAS{% endtrans %}</a></li>
+                                <li><a href="{{ url('producto_shop') }}?categoria=accesorios">{% trans %}ACCESORIOS{% endtrans %}</a></li>
+                                <li><a href="{{ url('producto_shop') }}?categoria=ropa">{% trans %}ROPA{% endtrans %}</a></li>
+                                <li><a href="{{ url('producto_shop') }}?categoria=zapatillas">{% trans %}ZAPATILLAS{% endtrans %}</a></li>
                             </ul>
                         </li>
                         <li><a href="#">{% trans %}SOBRE NOSOTROS{% endtrans %}</a></li>

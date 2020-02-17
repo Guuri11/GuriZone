@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Categorias;
 use App\Entity\Producto;
+use App\Entity\Subcategoria;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -29,7 +30,6 @@ class ProductoType extends AbstractType
             ->add('precioUnidad')
             ->add('fotoProd',TextType::class,[
                 'label'=>'Foto Perfil',
-                'data'=>'/imgs/productos/'
             ])
             ->add('descripcion',TextareaType::class)
             ->add('descatalogado',ChoiceType::class,[
@@ -42,22 +42,12 @@ class ProductoType extends AbstractType
             ])
             ->add('categoriaProd', EntityType::class,[
                 'class'=>Categorias::class,
+                'choice_label'=>'tipoCat'
                 ])
-            ->add('subcategoriaProd', ChoiceType::class,
+            ->add('subcategoriaProd', EntityType::class,
                 [
-                    'choices'=>[
-                        'Balones'=>'1',
-                        'Tableros'=>'2',
-                        'Varios'=>'3',
-                        'Camisetas NBA'=>'4',
-                        'Sudaderas'=>'5',
-                        'Camisetas'=>'6',
-                        'Chaquetas'=>'7',
-                        'Pantalones'=>'8',
-                        'Jordan'=>'9',
-                        'Nike'=>'10',
-                        'Adidas'=>'11',
-                    ]
+                    'class'=>Subcategoria::class,
+                    'choice_label'=>'tipo'
                 ])
             ->add('idEmpleado')
         ;
