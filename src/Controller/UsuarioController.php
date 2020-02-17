@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Producto;
 use App\Entity\Usuario;
+use App\Form\ContactType;
 use App\Form\UsuarioType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -113,13 +114,43 @@ class UsuarioController extends AbstractController
     /**
      * @Route("/contacto", name="contacto")
      */
-    public function contact(){
+    public function contact(Request $request, \Swift_Mailer $mailer){
         $repository = $this->getDoctrine()->getRepository(Producto::class);
         $ultimoProducto = $repository->getLatest();
 
+        $contact_form = $this->createForm(ContactType::class);
+        $contact_form->handleRequest($request);
+        $nombre = null;
+        $email = null;
+        $asunto = null;
+        $mensaje = null;
+        if ($contact_form->isSubmitted() && $contact_form->isValid()){
+            $datos = $contact_form->getData();
+            $nombre = $datos['nombre'];
+            $email = $datos['email'];
+            $asunto = $datos['asunto'];
+            $mensaje = $datos['mensaje'];
+
+            $send_email = (new \Swift_Message($asunto))
+            ->setFrom($email)
+            ->setTo('sergio.gurillo11@gmail.com')
+            ->setBody(
+                $this->renderView('email/contact.html.twig',
+                    [
+                        'nombre'=>$nombre,
+                        'email'=>$email,
+                        'asunto'=>$asunto,
+                        'mensaje'=>$mensaje
+                    ]),
+                'text/html'
+            );
+            $mailer->send($send_email);
+        }
+
 
         return $this->render('usuario/contact.html.twig', [
-            'ultimoProducto'=>$ultimoProducto
+            'ultimoProducto'=>$ultimoProducto,
+            'contacto'=>$contact_form->createView()
         ]);
     }
 
