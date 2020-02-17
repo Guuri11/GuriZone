@@ -85,23 +85,16 @@
                         <div class="border p-4 rounded mb-4">
                             <h3 class="mb-3 h6 text-uppercase text-black d-block">Categorias</h3>
                             <ul class="list-unstyled mb-0">
-                                <li class="mb-1"><a href="?categoria=todo&page=1" class="d-flex"><span>Todo</span> <span class="text-black ml-auto"></span></a></li>
-                                <li class="mb-1"><a href="?categoria=accesorios&page=1" class="d-flex"><span>Accesorios</span> <span class="text-black ml-auto"></span></a></li>
-                                <li class="mb-1"><a href="?categoria=ropa&page=1" class="d-flex"><span>Ropa</span> <span class="text-black ml-auto"></span></a></li>
-                                <li class="mb-1"><a href="?categoria=zapatillas&page=1" class="d-flex"><span>Zapatillas</span> <span class="text-black ml-auto"></span></a></li>
+                                <li class="mb-1"><a href="?categoria=todo" class="d-flex"><span>Todo</span> <span class="text-black ml-auto"></span></a></li>
+                                <li class="mb-1"><a href="?categoria=accesorios" class="d-flex"><span>Accesorios</span> <span class="text-black ml-auto"></span></a></li>
+                                <li class="mb-1"><a href="?categoria=ropa" class="d-flex"><span>Ropa</span> <span class="text-black ml-auto"></span></a></li>
+                                <li class="mb-1"><a href="?categoria=zapatillas" class="d-flex"><span>Zapatillas</span> <span class="text-black ml-auto"></span></a></li>
                             </ul>
                         </div>
                         <div class="border p-4 rounded mb-4">
                             <div class="mb-4">
                                 <h3 class="mb-3 h6 text-uppercase text-black d-block">Filtrar por fecha</h3>
-                                <form action="" method="get">
-                                    <label for="fecha_inicial" class="d-flex text-black">Fecha Inicial</label>
-                                    <input type="date" id="fecha_inicial" name="fecha_inicial" class="mr-2 mt-1 form-control">
-                                    <label for="fecha_final" class="d-flex text-black">Fecha Final</label>
-                                    <input type="date" id="fecha_final" class="mr-2 mt-1 form-control" name="fecha_final">
-                                    <input type="hidden" name="page" value="1">
-                                    <input type="submit" value="Filtrar" class="btn btn-primary mt-3">
-                                </form>
+                                {{ include('producto/shop_date_filter.html.twig') }}
                             </div>
                         </div>
                     </div>

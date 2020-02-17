@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Categorias;
 use App\Entity\Producto;
+use App\Form\DateFilterType;
 use App\Form\ProductoType;
 use App\Repository\ProductoRepository;
 use http\Client\Curl\User;
@@ -24,16 +25,8 @@ class ProductoController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Producto::class);
         $ultimoProducto = $repository->getLatest();
 
-        // Variables de filtro
-        $search = null;
-        $category = null;
-        $startDate = null;
-        $endDate = null;
-
-        if ($request->query->has('categoria'))
-            $category = $request->query->get('categoria');
-
         $productos = $productos->getAll($page);
+        $ultimoProducto = $repository->getLatest();
 
 
         return $this->render('producto/index.html.twig', [
@@ -43,21 +36,41 @@ class ProductoController extends AbstractController
     }
 
     /**
-     * @Route("/tienda", defaults={"page": "1"}, name="producto_shop", methods={"GET"})
+     * @Route("/tienda", defaults={"page": "1"}, name="producto_shop", methods={"GET","POST"})
      * @Route("/tienda/page/{page<[1-9]\d*>}", defaults={"_format"="html"}, methods="GET", name="producto_shop_paginated")
      */
-    public function shop(int $page, ProductoRepository $productos): Response{
+    public function shop(Request $request, int $page, ProductoRepository $productos): Response{
 
         // get the Producto repository (it is like our model)
         $repository = $this->getDoctrine()->getRepository(Producto::class);
 
-        $productos = $productos->getAll($page);
-        $ultimoProducto = $repository->getLatest();
+        // Formulario de filtro de fecha
+        $date_filter_form = $this->createForm(DateFilterType::class);
+        $date_filter_form->handleRequest($request);
 
+        // Variables de filtro
+        $search = null;
+        $category = null;
+        $startDate = null;
+        $endDate = null;
+
+        if ($request->query->has('categoria'))
+            $category = $request->query->get('categoria');
+        if ($request->query->has('search'))
+            $search = $request->query->get('search');
+        if ($date_filter_form->isSubmitted() && $date_filter_form->isValid()){
+            $data = $date_filter_form->getData();
+            $startDate = $data['fecha_inicial'];
+            $endDate = $data['fecha_final'];
+        }
+
+        $productos = $productos->getAll($page,$search,$category,$startDate,$endDate);
+        $ultimoProducto = $repository->getLatest();
 
         return $this->render('producto/shop.html.twig', [
             'paginator'=>$productos,
-            'ultimoProducto'=>$ultimoProducto
+            'ultimoProducto'=>$ultimoProducto,
+            'form_date_filter'=>$date_filter_form->createView()
         ]);
     }
     /**
