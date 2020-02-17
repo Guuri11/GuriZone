@@ -17,7 +17,7 @@ class ProductoController extends AbstractController
 {
 
     /**
-     * @Route("/dashboard/producto", defaults={"page": "1"}, name="producto_index", methods={"GET"})
+     * @Route("/dashboard/producto", defaults={"page": "1"}, name="producto_index", methods={"GET","POST"})
      * @Route("/dashboard/producto/page/{page<[1-9]\d*>}", defaults={"_format"="html"}, methods="GET", name="producto_index_paginated")
      */
     public function index(Request $request,int $page, ProductoRepository $productos): Response
@@ -25,13 +25,35 @@ class ProductoController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Producto::class);
         $ultimoProducto = $repository->getLatest();
 
-        $productos = $productos->getAll($page);
+        // Formulario de filtro de fecha
+        $date_filter_form = $this->createForm(DateFilterType::class);
+        $date_filter_form->handleRequest($request);
+
+        // Variables de filtro
+        $category = null;
+        $startDate = null;
+        $endDate = null;
+        $data = [];
+        if ($request->query->has('categoria'))
+            $category = $request->query->get('categoria');
+
+        if ($date_filter_form->isSubmitted() && $date_filter_form->isValid()){
+            $data = $date_filter_form->getData();
+            $startDate = $data['fecha_inicial'];
+            $endDate = $data['fecha_final'];
+        }
+
+
+        $productos = $productos->getAll($page,null,$category,$startDate,$endDate);
+
         $ultimoProducto = $repository->getLatest();
 
 
         return $this->render('producto/index.html.twig', [
             'paginator' => $productos,
-            'ultimoProducto'=>$ultimoProducto
+            'ultimoProducto'=>$ultimoProducto,
+            'form_date_filter'=>$date_filter_form->createView(),
+            'datosxd'=>$data
         ]);
     }
 

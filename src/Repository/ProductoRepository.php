@@ -33,7 +33,6 @@ class ProductoRepository extends ServiceEntityRepository
     public function getAll(int $page = 1, string $search = null, string $category = null, DateTime $startDate = null, DateTime $endDate = null):Paginator{
         $query = $this->createQueryBuilder('p')
         ->orderBy('p.idProd','DESC');
-
         if ($search !== null){
             $query
                 ->where('p.modeloProd LIKE :search')
