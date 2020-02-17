@@ -5,13 +5,17 @@ namespace App\Form;
 use App\Entity\Categorias;
 use App\Entity\Producto;
 use App\Entity\Subcategoria;
+use App\Entity\Usuario;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class ProductoType extends AbstractType
 {
@@ -26,7 +30,10 @@ class ProductoType extends AbstractType
             ->add('tallaDisp')
             ->add('stockProd')
             ->add('numVentasProd')
-            ->add('fechaSalida')
+            ->add('fechaSalida',HiddenType::class,
+                [
+                    'data'=>\DateTime::createFromFormat('Y-m-d H:i:s',time())
+                ])
             ->add('precioUnidad')
             ->add('fotoProd',TextType::class,[
                 'label'=>'Foto Perfil',
@@ -49,7 +56,11 @@ class ProductoType extends AbstractType
                     'class'=>Subcategoria::class,
                     'choice_label'=>'tipo'
                 ])
-            ->add('idEmpleado')
+            ->add('idEmpleado',EntityType::class,
+                [
+                    'class'=>Usuario::class,
+                    'choice_label'=>'email'
+                ])
         ;
     }
 
