@@ -137,7 +137,7 @@
                     {%  for up in ultimoProducto %}
                         <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
                             <h3 class="footer-heading mb-4">Promo</h3>
-                            <a href="" class="block-6">
+                            <a href="{{ url('producto_show',{'idProd': ultimoProducto[0].idProd}) }}" class="block-6">
                                 <!--img src="/../ultimoProductocdcd" alt="Image placeholder" class="img-fluid rounded mb-4"-->
                                 <img src="/../{{ up.fotoProd }}" alt="Image placeholder" class="img-fluid rounded mb-4">
                                 <h3 class="font-weight-light  mb-0">{% trans %}Nuevo producto!{% endtrans %}</h3>
