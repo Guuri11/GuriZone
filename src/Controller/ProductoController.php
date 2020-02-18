@@ -6,6 +6,7 @@ use App\Entity\Categorias;
 use App\Entity\Producto;
 use App\Form\DateFilterType;
 use App\Form\ProductoType;
+use App\Form\SearchType;
 use App\Repository\ProductoRepository;
 use http\Client\Curl\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -70,6 +71,10 @@ class ProductoController extends AbstractController
         $date_filter_form = $this->createForm(DateFilterType::class);
         $date_filter_form->handleRequest($request);
 
+        //Formulario de busqueda
+        $search_form = $this->createForm(SearchType::class);
+        $search_form->handleRequest($request);
+
         // Variables de filtro
         $search = null;
         $category = null;
@@ -78,13 +83,13 @@ class ProductoController extends AbstractController
 
         if ($request->query->has('categoria'))
             $category = $request->query->get('categoria');
-        if ($request->query->has('search'))
-            $search = $request->query->get('search');
-        if ($date_filter_form->isSubmitted() && $date_filter_form->isValid()){
-            $data = $date_filter_form->getData();
-            $startDate = $data['fecha_inicial'];
-            $endDate = $data['fecha_final'];
+
+        if ($search_form->isSubmitted() && $search_form->isValid()){
+            $data = $search_form->getData();
+            $search = $data['search'];
         }
+        if ($request->query->has('search'))
+            $search = $request->query->getAlnum('search');
 
         $productos = $productos->getAll($page,$search,$category,$startDate,$endDate);
         $ultimoProducto = $repository->getLatest();

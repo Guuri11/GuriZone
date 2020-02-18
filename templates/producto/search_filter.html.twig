@@ -1,0 +1,9 @@
+{{ form_start(search_filter,{'attr':{'class':'site-block-top-search'}}) }}
+<div>
+{{ form_widget(search_filter.search, {'attr': {'class': 'form-control border-0','placeholder':'Search'}}) }}
+
+</div>
+<div>
+    {{ form_widget(search_filter.filtrar, {'label':'','attr': {'class': 'icon icon-search mr-5 bg-white'}}) }}
+</div>
+{{ form_end(search_filter) }}

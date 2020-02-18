@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,8 +17,12 @@ class SearchType extends AbstractType
             ->add('search',TextType::class,
                 [
                     'required'=>false,
-                    'data'=>'Bsucar...'
                 ])
+            ->add('filtrar',SubmitType::class,
+                [
+                    'attr'=>['value'=>'']
+                ])
+        ;
         ;
     }
 

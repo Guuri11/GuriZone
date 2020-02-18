@@ -36,9 +36,7 @@ class ProductoRepository extends ServiceEntityRepository
         if ($search !== null){
             $query
                 ->where('p.modeloProd LIKE :search')
-                ->orWhere('p.categoriaProd LIKE :search')
-                ->orWhere('p.subcategoriaProd LIKE :search')
-                ->orWhere('p.marcaProd LIKE :searc')
+                ->orWhere('p.marcaProd LIKE :search')
                 ->setParameter('search','%'.$search.'%');
         }
         if ($category !== null && $category !=='todo'){
