@@ -16,12 +16,8 @@
                     <div class="col-md-9 order-2">
                         <div class="row">
                             <div class="col-md-12 mb-5">
-                                {% if 1==2 and fecha_inicial is not null and fecha_final is not null %}
-                                    <div class="float-md-left mb-4"><h2 class="text-black h5">Fecha filtrada entre {{ fecha_inicial }} y {{ fecha_final }}</h2></div>
-                                {% elseif  1==2 and busqueda is not null %}
-                                    <div class="float-md-left mb-4"><h2 class="text-black h5">Busqueda: {{ busqueda|upper }}</h2></div>
-                                {% else %}
-                                    <div class="float-md-left mb-4"><h2 class="text-black h5">TODO</h2></div>
+                                {% if results != true %}
+                                    <div class="float-md-left mb-4"><h2 class="text-black h5">No se han encontrado resultados</h2></div>
                                 {% endif %}
                             </div>
                         </div>
@@ -52,7 +48,7 @@
                                 <div class="site-block-27">
                                     <ul>
                                     {% if paginator.previousPage %}
-                                        <li class="prev"><a href="{{ path('producto_shop_paginated', {page: paginator.previousPage}) }}" rel="previous"><</a></li>
+                                        <li class="prev"><a href="{{ path('producto_shop_paginated', {page: paginator.previousPage}|merge(query)) }}" rel="previous"><</a></li>
                                     {% else %}
                                         <li class="prev disabled"><span><</span></li>
                                     {% endif %}
@@ -61,12 +57,12 @@
                                         {% if i == paginator.currentPage %}
                                             <li class="active"><span>{{ i }} <span class="sr-only">{{ paginator.currentPage }}</span></span></li>
                                         {% else %}
-                                            <li><a href="{{ path('producto_shop_paginated', {page: i}) }}">{{ i }}</a></li>
+                                            <li><a href="{{ path('producto_shop_paginated', {page: i}|merge(query)) }}">{{ i }}</a></li>
                                         {% endif %}
                                     {% endfor %}
 
                                     {% if paginator.hasNextPage %}
-                                        <li class="prev"><a href="{{ path('producto_shop_paginated', {page: paginator.nextPage}) }}" rel="previous">></a></li>
+                                        <li class="prev"><a href="{{ path('producto_shop_paginated', {page: paginator.nextPage}|merge(query)) }}" rel="previous">></a></li>
                                     {% else %}
                                         <li class="next disabled"><span>></span></li>
                                     {% endif %}
@@ -85,10 +81,10 @@
                         <div class="border p-4 rounded mb-4">
                             <h3 class="mb-3 h6 text-uppercase text-black d-block">Categorias</h3>
                             <ul class="list-unstyled mb-0">
-                                <li class="mb-1"><a href="?categoria=todo" class="d-flex"><span>Todo</span> <span class="text-black ml-auto"></span></a></li>
-                                <li class="mb-1"><a href="?categoria=accesorios" class="d-flex"><span>Accesorios</span> <span class="text-black ml-auto"></span></a></li>
-                                <li class="mb-1"><a href="?categoria=ropa" class="d-flex"><span>Ropa</span> <span class="text-black ml-auto"></span></a></li>
-                                <li class="mb-1"><a href="?categoria=zapatillas" class="d-flex"><span>Zapatillas</span> <span class="text-black ml-auto"></span></a></li>
+                                <li class="mb-1"><a href="{{ url('producto_shop') }}?categoria=todo" class="d-flex"><span>Todo</span> <span class="text-black ml-auto"></span></a></li>
+                                <li class="mb-1"><a href="{{ url('producto_shop') }}?categoria=accesorios" class="d-flex"><span>Accesorios</span> <span class="text-black ml-auto"></span></a></li>
+                                <li class="mb-1"><a href="{{ url('producto_shop') }}?categoria=ropa" class="d-flex"><span>Ropa</span> <span class="text-black ml-auto"></span></a></li>
+                                <li class="mb-1"><a href="{{ url('producto_shop') }}?categoria=zapatillas" class="d-flex"><span>Zapatillas</span> <span class="text-black ml-auto"></span></a></li>
                             </ul>
                         </div>
                         <div class="border p-4 rounded mb-4">

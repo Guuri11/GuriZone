@@ -11,10 +11,10 @@
                 <div class="btn-group mr-1 ml-md-auto float-right">
                     <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuReference" data-toggle="dropdown">Filtrar por Categoria</button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                        <a class="dropdown-item" href="?categoria=todo&page=1">Todo</a>
-                        <a class="dropdown-item" href="?categoria=accesorios&page=1">Accesorios</a>
-                        <a class="dropdown-item" href="?categoria=ropa&page=1">Ropa</a>
-                        <a class="dropdown-item" href="?categoria=zapatillas&page=1">Zapatillas</a>
+                        <a class="dropdown-item" href="{{ url('producto_shop') }}?categoria=todo">Todo</a>
+                        <a class="dropdown-item" href="{{ url('producto_shop') }}?categoria=accesorios">Accesorios</a>
+                        <a class="dropdown-item" href="{{ url('producto_shop') }}?categoria=ropa">Ropa</a>
+                        <a class="dropdown-item" href="{{ url('producto_shop') }}?categoria=zapatillas">Zapatillas</a>
                     </div>
                 </div>
                 <!--FIN FILTRO CATEGORIA-->
@@ -99,7 +99,7 @@
                     <div class="site-block-27">
                         <ul>
                             {% if paginator.previousPage %}
-                                <li class="prev"><a href="{{ path('producto_index_paginated', {page: paginator.previousPage}) }}" rel="previous"><</a></li>
+                                <li class="prev"><a href="{{ path('producto_index_paginated', {page: paginator.previousPage}|merge(query)) }}" rel="previous"><</a></li>
                             {% else %}
                                 <li class="prev disabled"><span><</span></li>
                             {% endif %}
@@ -108,12 +108,12 @@
                                 {% if i == paginator.currentPage %}
                                     <li class="active"><span>{{ i }} <span class="sr-only">{{ paginator.currentPage }}</span></span></li>
                                 {% else %}
-                                    <li><a href="{{ path('producto_index_paginated', {page: i}) }}">{{ i }}</a></li>
+                                    <li><a href="{{ path('producto_index_paginated', {page: i}|merge(query)) }}">{{ i }}</a></li>
                                 {% endif %}
                             {% endfor %}
 
                             {% if paginator.hasNextPage %}
-                                <li class="prev"><a href="{{ path('producto_index_paginated', {page: paginator.nextPage}) }}" rel="previous">></a></li>
+                                <li class="prev"><a href="{{ path('producto_index_paginated', {page: paginator.nextPage}|merge(query)) }}" rel="previous">></a></li>
                             {% else %}
                                 <li class="next disabled"><span>></span></li>
                             {% endif %}

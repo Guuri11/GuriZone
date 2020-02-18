@@ -29,7 +29,6 @@ class ProductoController extends AbstractController
         // Formulario de filtro de fecha
         $date_filter_form = $this->createForm(DateFilterType::class);
         $date_filter_form->handleRequest($request);
-
         // Variables de filtro
         $category = null;
         $startDate = null;
@@ -46,7 +45,10 @@ class ProductoController extends AbstractController
 
 
         $productos = $productos->getAll($page,null,$category,$startDate,$endDate);
-
+        if ($productos->getNumResults()===0)
+            $results = false;
+        else
+            $results = true;
         $ultimoProducto = $repository->getLatest();
 
 
@@ -54,7 +56,8 @@ class ProductoController extends AbstractController
             'paginator' => $productos,
             'ultimoProducto'=>$ultimoProducto,
             'form_date_filter'=>$date_filter_form->createView(),
-            'datosxd'=>$data
+            'query'=>$request->query->all(),
+            'results'=>$results
         ]);
     }
 
@@ -71,33 +74,40 @@ class ProductoController extends AbstractController
         $date_filter_form = $this->createForm(DateFilterType::class);
         $date_filter_form->handleRequest($request);
 
-        //Formulario de busqueda
-        $search_form = $this->createForm(SearchType::class);
-        $search_form->handleRequest($request);
-
         // Variables de filtro
         $search = null;
         $category = null;
         $startDate = null;
         $endDate = null;
+        $data = [];
 
         if ($request->query->has('categoria'))
             $category = $request->query->get('categoria');
 
-        if ($search_form->isSubmitted() && $search_form->isValid()){
-            $data = $search_form->getData();
-            $search = $data['search'];
+        if ($date_filter_form->isSubmitted() && $date_filter_form->isValid()){
+            $data = $date_filter_form->getData();
+            $startDate = $data['fecha_inicial'];
+            $endDate = $data['fecha_final'];
         }
+
         if ($request->query->has('search'))
             $search = $request->query->getAlnum('search');
 
         $productos = $productos->getAll($page,$search,$category,$startDate,$endDate);
+
+        if ($productos->getNumResults()===0)
+            $results = false;
+        else
+            $results = true;
+
         $ultimoProducto = $repository->getLatest();
 
         return $this->render('producto/shop.html.twig', [
             'paginator'=>$productos,
             'ultimoProducto'=>$ultimoProducto,
-            'form_date_filter'=>$date_filter_form->createView()
+            'form_date_filter'=>$date_filter_form->createView(),
+            'query'=>$request->query->all(),
+            'results'=>$results
         ]);
     }
     /**
