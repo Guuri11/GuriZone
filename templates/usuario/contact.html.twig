@@ -7,6 +7,9 @@
         <div class="row gurizone-contact m-5 p-3">
             <div class="col-md-12">
                 <h2 class="h3 mb-3 text-black">¡Pregunta sobre cualquier duda!</h2>
+                {% if exito %}
+                <p class="alert-success">Tu mensaje ha sido enviado con exito</p>
+                {% endif %}
             </div>
             <div class="col-md-12 justify-content-center">
                 {{ include('usuario/contact_form.html.twig') }}

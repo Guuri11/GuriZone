@@ -14,6 +14,7 @@
         "symfony/flex": "^1.3.1",
         "symfony/form": "5.0.*",
         "symfony/framework-bundle": "5.0.*",
+        "symfony/google-mailer": "5.0.*",
         "symfony/http-client": "5.0.*",
         "symfony/intl": "5.0.*",
         "symfony/mailer": "5.0.*",
@@ -24,18 +25,19 @@
         "symfony/security-bundle": "5.0.*",
         "symfony/serializer-pack": "*",
         "symfony/string": "5.0.*",
+        "symfony/swiftmailer-bundle": "^3.4",
         "symfony/translation": "5.0.*",
         "symfony/twig-pack": "*",
         "symfony/validator": "5.0.*",
         "symfony/web-link": "5.0.*",
-        "symfony/yaml": "5.0.*"
+        "symfony/yaml": "5.0.*",
+        "ext-http": "*"
     },
     "require-dev": {
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
-        "symfony/test-pack": "*",
-    "ext-http": "*"
+        "symfony/test-pack": "*"
     },
     "config": {
         "preferred-install": {

@@ -124,6 +124,7 @@ class UsuarioController extends AbstractController
         $email = null;
         $asunto = null;
         $mensaje = null;
+        $exito = false;
         if ($contact_form->isSubmitted() && $contact_form->isValid()){
             $datos = $contact_form->getData();
             $nombre = $datos['nombre'];
@@ -132,8 +133,8 @@ class UsuarioController extends AbstractController
             $mensaje = $datos['mensaje'];
 
             $send_email = (new \Swift_Message($asunto))
-            ->setFrom($email)
-            ->setTo('sergio.gurillo11@gmail.com')
+            ->setFrom('guriacb11@gmail.com')
+            ->setTo('guriacb11@gmail.com')
             ->setBody(
                 $this->renderView('email/contact.html.twig',
                     [
@@ -142,15 +143,19 @@ class UsuarioController extends AbstractController
                         'asunto'=>$asunto,
                         'mensaje'=>$mensaje
                     ]),
-                'text/html'
+                'text/plain'
             );
+            // Send the message
             $mailer->send($send_email);
+
+            $exito = true;
         }
 
 
         return $this->render('usuario/contact.html.twig', [
             'ultimoProducto'=>$ultimoProducto,
-            'contacto'=>$contact_form->createView()
+            'contacto'=>$contact_form->createView(),
+            'exito'=>$exito
         ]);
     }
 
