@@ -132,7 +132,7 @@ class UsuarioController extends AbstractController
             $asunto = $datos['asunto'];
             $mensaje = $datos['mensaje'];
 
-            $send_email = (new \Swift_Message($asunto))
+            $send_email = (new \Swift_Message('Mensaje de contacto'))
             ->setFrom('guriacb11@gmail.com')
             ->setTo('guriacb11@gmail.com')
             ->setBody(
@@ -143,7 +143,7 @@ class UsuarioController extends AbstractController
                         'asunto'=>$asunto,
                         'mensaje'=>$mensaje
                     ]),
-                'text/plain'
+                'text/html'
             );
             // Send the message
             $mailer->send($send_email);
