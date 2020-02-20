@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Entity\Roles;
 
 /**
  * Usuario
@@ -60,7 +61,7 @@ class Usuario implements UserInterface
     private $fotoPerfil;
 
     /**
-     * @var \Roles
+     * @var Roles
      * @ORM\ManyToOne(targetEntity="Roles",cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="rol", referencedColumnName="id_rol")

@@ -11,6 +11,7 @@
         <h1 class="text-center">Iniciar sesión</h1>
             {% if error %}
                 <p class="text-danger">Error en el inicio de sesion</p>
+                {{ dump(error) }}
             {% endif %}
         <form action="{{ path('login') }}" method="post">
             <div class="form-group">
