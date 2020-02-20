@@ -6,7 +6,6 @@
 <div class="container">
     <div class="justify-content-center gurizone-crear p-lg-4 m-lg-3 p-md-4 m-md-3 p-sm-4 m-sm-5">
         <h1 class="text-center text-black-50">CREAR PRODUCTO</h1>
-        {{ dump(errores) }}
         <div class="col-md-12 justify-content-center">
         {{ include('producto/_form.html.twig') }}
             <a href="{{ path('producto_index') }}"><button class="btn btn-primary mt-3 float-right">back to list</button></a>

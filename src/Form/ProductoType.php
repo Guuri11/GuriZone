@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProductoType extends AbstractType
 {
@@ -32,6 +33,15 @@ class ProductoType extends AbstractType
             ->add('stockProd')
             ->add('numVentasProd')
             ->add('precioUnidad')
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'download_label' => '...',
+                'download_uri' => true,
+                'image_uri' => true,
+                'imagine_pattern' => '...',
+                'asset_helper' => true,
+            ])
             ->add('fotoProd',TextType::class,[
                 'label'=>'Foto Perfil',
             ])

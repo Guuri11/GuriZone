@@ -94,9 +94,15 @@
                                 <div class="item">
                                     <a href="{{ url('producto_show',{'idProd': producto.idProd}) }}" class="block-6">
                                         <div class="block-4 text-center shadow">
-                                            <figure class="block-4-image">
-                                                <img src="../{{ producto.fotoProd }}" alt="Image placeholder" class="img-fluid">
-                                            </figure>
+                                            {% if producto.imageName == "" %}
+                                                <figure class="block-4-image">
+                                                    <img src="../{{ producto.fotoProd }}" alt="Image placeholder" class="img-fluid">
+                                                </figure>
+                                            {% else %}
+                                                <figure class="block-4-image">
+                                                    <img src="{{ vich_uploader_asset(producto, 'imageFile') }}" alt="Image placeholder" class="img-fluid">
+                                                </figure>
+                                            {% endif %}
                                             <div class="block-4-text p-4">
                                                 <h3><a href="{{ url('producto_show',{'idProd': producto.idProd}) }}">{{ producto.getModeloProd }}</a></h3>
                                                 <p class="text-primary font-weight-bold">{{ producto.getPrecioUnidad }}€</p>

@@ -135,8 +135,6 @@ class ProductoController extends AbstractController
               $entityManager->flush();
 
               return $this->redirectToRoute('homepage');
-          }else{
-              $error = $form->getErrors();
           }
         }
 
@@ -144,7 +142,6 @@ class ProductoController extends AbstractController
             'producto' => $producto,
             'form' => $form->createView(),
             'ultimoProducto'=>$ultimoProducto,
-            'errores'=>$error
         ]);
     }
 
