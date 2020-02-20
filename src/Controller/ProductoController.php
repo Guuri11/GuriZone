@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class ProductoController extends AbstractController
 {
@@ -33,6 +34,7 @@ class ProductoController extends AbstractController
         $category = null;
         $startDate = null;
         $endDate = null;
+        $usuario = null;
         $data = [];
         if ($request->query->has('categoria'))
             $category = $request->query->get('categoria');
@@ -42,9 +44,12 @@ class ProductoController extends AbstractController
             $startDate = $data['fecha_inicial'];
             $endDate = $data['fecha_final'];
         }
+        if ($this->getUser()->getRoles()[0] !== 'ROLE_ADMIN'){
+            $usuario = $this->getUser();
+        }
 
 
-        $productos = $productos->getAll($page,null,$category,$startDate,$endDate);
+        $productos = $productos->getAll($page,null,$category,$startDate,$endDate,$usuario);
         if ($productos->getNumResults()===0)
             $results = false;
         else
@@ -57,7 +62,8 @@ class ProductoController extends AbstractController
             'ultimoProducto'=>$ultimoProducto,
             'form_date_filter'=>$date_filter_form->createView(),
             'query'=>$request->query->all(),
-            'results'=>$results
+            'results'=>$results,
+            'user'=>$this->getUser()->getIdCli()
         ]);
     }
 
@@ -117,22 +123,28 @@ class ProductoController extends AbstractController
     {
         $producto = new Producto();
         $form = $this->createForm(ProductoType::class, $producto);
+        $form->handleRequest($request);
         $repository = $this->getDoctrine()->getRepository(Producto::class);
         $ultimoProducto = $repository->getLatest();
 
+        if ($form->isSubmitted()){
+            if ($form->isValid()) {
+              $producto->setFechaSalida(\DateTime::createFromFormat('Y-m-d H:i:s',date('Y-m-d H:i:s')));
+              $entityManager = $this->getDoctrine()->getManager();
+              $entityManager->persist($producto);
+              $entityManager->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($producto);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('homepage');
+              return $this->redirectToRoute('homepage');
+          }else{
+              $error = $form->getErrors();
+          }
         }
 
         return $this->render('producto/new.html.twig', [
             'producto' => $producto,
             'form' => $form->createView(),
-            'ultimoProducto'=>$ultimoProducto
+            'ultimoProducto'=>$ultimoProducto,
+            'errores'=>$error
         ]);
     }
 
@@ -178,11 +190,14 @@ class ProductoController extends AbstractController
      */
     public function delete(Request $request, Producto $producto): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$producto->getIdProd(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($producto);
-            $entityManager->flush();
+        if ($this->getUser()->getRoles()[0] === 'ROLE_ADMIN' or $this->getUser() === $producto->getIdEmpleado()){
+            if ($this->isCsrfTokenValid('delete'.$producto->getIdProd(), $request->request->get('_token'))) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($producto);
+                $entityManager->flush();
+            }
         }
+
 
         return $this->redirectToRoute('producto_index');
     }

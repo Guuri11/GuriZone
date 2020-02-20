@@ -30,7 +30,7 @@ class ProductoRepository extends ServiceEntityRepository
             return $query->getResult();
     }
 
-    public function getAll(int $page = 1, string $search = null, string $category = null, DateTime $startDate = null, DateTime $endDate = null):Paginator{
+    public function getAll(int $page = 1, string $search = null, string $category = null, DateTime $startDate = null, DateTime $endDate = null, string $usuario = null):Paginator{
         $query = $this->createQueryBuilder('p')
         ->orderBy('p.idProd','DESC');
         if ($search !== null){
@@ -59,7 +59,10 @@ class ProductoRepository extends ServiceEntityRepository
         if ($endDate !== null){
             $query->andWhere('p.fechaSalida <= :endDate')
                 ->setParameter('endDate',$endDate->format('Y-m-d H:i:s'));
-
+        }
+        if ($usuario !== null){
+            $query->andWhere('p.idEmpleado = :empleado')
+                ->setParameter('empleado',$usuario);
         }
 
         return (new Paginator($query))->paginate($page);

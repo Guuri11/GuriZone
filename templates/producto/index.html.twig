@@ -7,6 +7,7 @@
     <div class="justify-content-center gurizone-login p-lg-3 m-lg-2 p-md-4 m-md-3 p-sm-4 m-sm-5 table-bordered">
         <div class="row">
             <div class="col-lg-6 col-md-12 col-sm-12 border p-4 rounded mb-4 ml-3">
+                {{ dump(user) }}
                 <!--FILTRO CATEGORIA-->
                 <div class="btn-group mr-1 ml-md-auto float-right">
                     <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuReference" data-toggle="dropdown">Filtrar por Categoria</button>
@@ -36,6 +37,7 @@
                 <thead class="thead-dark sticky-top">
                     <tr>
                         <th>IdProd</th>
+                        <th>Creador Por</th>
                         <th>ModeloProd</th>
                         <th>MarcaProd</th>
                         <th>Color</th>
@@ -56,6 +58,7 @@
                 {% for producto in paginator.results %}
                     <tr>
                         <td>{{ producto.idProd }}</td>
+                        <td>{{ producto.idEmpleado }}</td>
                         <td>{{ producto.modeloProd }}</td>
                         <td>{{ producto.marcaProd }}</td>
                         <td>{{ producto.color }}</td>

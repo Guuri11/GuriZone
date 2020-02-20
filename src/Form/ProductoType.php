@@ -11,6 +11,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,18 +23,14 @@ class ProductoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('modeloProd')
-            ->add('marcaProd')
-            ->add('color')
+            ->add('modeloProd',TextType::class)
+            ->add('marcaProd',TextType::class)
+            ->add('color',TextType::class)
             ->add('colorDisp')
-            ->add('talla')
+            ->add('talla',TextType::class)
             ->add('tallaDisp')
             ->add('stockProd')
             ->add('numVentasProd')
-            ->add('fechaSalida',HiddenType::class,
-                [
-                    'data'=>\DateTime::createFromFormat('Y-m-d H:i:s',time())
-                ])
             ->add('precioUnidad')
             ->add('fotoProd',TextType::class,[
                 'label'=>'Foto Perfil',

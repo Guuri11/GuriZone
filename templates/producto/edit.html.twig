@@ -7,11 +7,15 @@
     <div class="justify-content-center gurizone-crear p-lg-4 m-lg-3 p-md-4 m-md-3 p-sm-4 m-sm-5">
         <h1 class="text-center text-black-50">EDITAR PRODUCTO</h1>
         <div class="col-md-12 justify-content-center">
-    {{ include('producto/_form.html.twig', {'button_label': 'Update'}) }}
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EMPLEADO') and producto.idEmpleado == app.user %}
+                {{ include('producto/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('homepage') }}">back to list</a>
+                <a href="{{ path('homepage') }}">back to list</a>
 
-    {{ include('producto/_delete_form.html.twig') }}
+                {{ include('producto/_delete_form.html.twig') }}
+            {% else %}
+                <a href="{{ path('producto_index') }}"><button class="btn btn-primary mt-3 ">back to list</button></a>
+            {% endif %}
         </div>
     </div>
 </div>
