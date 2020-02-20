@@ -9,19 +9,24 @@
 
     {{ form_start(registrationForm) }}
         <div class="form-group">
-        {{ form_row(registrationForm.nombre) }}
+            <span class="text-black">{{ form_label(registrationForm.nombre) }}</span><span class="text-danger"> *</span>
+            {{ form_widget(registrationForm.nombre,{'attr':{'class':'form-control'}}) }}
         </div>
         <div class="form-group">
-            {{ form_row(registrationForm.apellidos) }}
+            <span class="text-black">{{ form_label(registrationForm.apellidos) }}</span><span class="text-danger"> *</span>
+            {{ form_widget(registrationForm.apellidos,{'attr':{'class':'form-control'}}) }}
         </div>
         <div class="form-group">
-            {{ form_row(registrationForm.email) }}
+            <span class="text-black">{{ form_label(registrationForm.email) }}</span><span class="text-danger"> *</span>
+            {{ form_widget(registrationForm.email,{'attr':{'class':'form-control'}}) }}
         </div>
         <div class="form-group">
-            {{ form_row(registrationForm.plainPassword) }}
+            <span class="text-black">{{ form_label(registrationForm.plainPassword) }}</span><span class="text-danger"> *</span>
+            {{ form_widget(registrationForm.plainPassword,{'attr':{'class':'form-control'}}) }}
         </div>
         <div class="form-group">
-            {{ form_row(registrationForm.agreeTerms) }}
+            <span class="text-black">{{ form_label(registrationForm.agreeTerms) }}</span><span class="text-danger"> *</span>
+            {{ form_widget(registrationForm.agreeTerms) }}
         </div>
 
         <div class="text-center mt-3">
