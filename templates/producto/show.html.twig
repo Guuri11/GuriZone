@@ -7,7 +7,11 @@
         <div class="justify-content-center gurizone-login p-lg-4 m-lg-5 p-md-4 m-md-3 p-sm-4 m-sm-5">
             <div class="row">
                 <div class="col-md-6">
-                    <img src="..{{ producto.getFotoProd() }}" alt="Image" class="img-fluid w-75">
+                    {% if producto.imageName == "" %}
+                        <img src="..{{ producto.getFotoProd() }}" alt="Image" class="img-fluid w-75">
+                    {% else %}
+                        <img src="{{ vich_uploader_asset(producto, 'imageFile') }}" alt="Image" class="img-fluid w-75">
+                    {% endif %}
                 </div>
                 <div class="col-md-6">
                     <h2 class="text-black h1">{{ producto.getModeloProd() }}</h2>

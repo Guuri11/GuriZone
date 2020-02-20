@@ -139,7 +139,11 @@
                             <h3 class="footer-heading mb-4">Promo</h3>
                             <a href="{{ url('producto_show',{'idProd': ultimoProducto[0].idProd}) }}" class="block-6">
                                 <!--img src="/../ultimoProductocdcd" alt="Image placeholder" class="img-fluid rounded mb-4"-->
-                                <img src="/../{{ up.fotoProd }}" alt="Image placeholder" class="img-fluid rounded mb-4">
+                                {% if up.imageName == "" %}
+                                    <img src="/../{{ up.fotoProd }}" alt="Image placeholder" class="img-fluid rounded mb-4">
+                                {% else %}
+                                    <img src="{{ vich_uploader_asset(up, 'imageFile') }}" alt="Image placeholder" class="img-fluid rounded mb-4">
+                                {% endif %}
                                 <h3 class="font-weight-light  mb-0">{% trans %}Nuevo producto!{% endtrans %}</h3>
                                 <p></p>
                             </a>

@@ -42,8 +42,8 @@ class ProductoType extends AbstractType
                 'imagine_pattern' => '...',
                 'asset_helper' => true,
             ])
-            ->add('fotoProd',TextType::class,[
-                'label'=>'Foto Perfil',
+            ->add('fotoProd',HiddenType::class,[
+                'data'=>'imgs/productos/default_product_image.png'
             ])
             ->add('descripcion',TextareaType::class)
             ->add('descatalogado',ChoiceType::class,[

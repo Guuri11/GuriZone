@@ -27,7 +27,13 @@
                                 <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
                                     <div class="block-4 text-center border">
                                         <figure class="block-4-image">
-                                            <a href="{{ url('producto_show',{'idProd': producto.idProd}) }}"><img src="../..{{ producto.getFotoProd }}" alt="Image placeholder" class="img-fluid"></a>
+                                            <a href="{{ url('producto_show',{'idProd': producto.idProd}) }}">
+                                                {% if producto.imageName == "" %}
+                                                    <img src="../..{{ producto.getFotoProd }}" alt="Image placeholder" class="img-fluid">
+                                                {% else %}
+                                                    <img src="{{ vich_uploader_asset(producto, 'imageFile') }}" alt="Image placeholder" class="img-fluid">
+                                                {% endif %}
+                                            </a>
                                         </figure>
                                         <div class="block-4-text p-4">
                                             <h3><a href="{{ url('producto_show',{'idProd': producto.idProd}) }}">{{ producto.getModeloProd }}</a></h3>
